@@ -1,6 +1,30 @@
+#VSCode
 .vscode/*
-
 # Local History for Visual Studio Code
 .history/
-
 bin/*
+
+#CLion (Fix if it looks wrong, I don't have CLion)
+/.idea/
+/cmake-build-debug/
+
+#XCode
+#I have no clue what XCode does at all.
+#So just every file I could think of is going into the gitignore.
+.DS_Store
+.Trashes
+*.swp
+*.lock
+*~.nib
+DerivedData/
+build/
+*.pbx
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+!default.pbxuser
+!default.mode1v3
+!default.mode2v3
+!default.perspectivev3
+*.xccheckout
+xcuserdata/
