@@ -1,10 +1,13 @@
 #ifndef BALL_H_INCLUDED
 #define BALL_H_INCLUDED
 
+#include <cmath>
+
 #include "point.h"
 #include "color.h"
 #include "force.h"
 
+#include "SDL_Plotter.h"
 class ball_t
 {
 private:
@@ -15,7 +18,7 @@ private:
 
 public:
   ball_t();
-  ball_t(point_t,color_t,force_t,double);
+  ball_t(point_t, color_t, force_t, double);
 
   point_t getCenter() { return center; }
   void setCenter(point_t p) { center = p; }
@@ -25,6 +28,10 @@ public:
   void setForce(force_t f) { vec = f; }
   double getRadius() { return radius; }
   void setRadius(double r) { radius = r; }
+
+  void applyForce(force_t force);
+  void draw(SDL_Plotter &);
+  void move();
 };
 
 #endif // BALL_H_INCLUDED

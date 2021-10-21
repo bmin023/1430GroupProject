@@ -1,10 +1,28 @@
 #include "force.h"
 
+
 force_t::force_t(double mag, double dir)
 {
   magnitude = mag;
   direction = dir;
 }
+
+void force_t::setDirection(double d) {
+  direction = d;
+}
+
+void force_t::setMagnitude(double m) {
+  magnitude = m;
+}
+
+double force_t::getDirection() const {
+  return direction;
+}
+
+double force_t::getMagnitude() const {
+  return magnitude;
+}
+
 void force_t::apply(const force_t &f)
 {
   force_t r = add(f);
@@ -19,6 +37,7 @@ force_t force_t::add(const force_t &f) const
 
   ax = magnitude * cos(direction);
   bx = f.magnitude * cos(f.direction);
+  
   ay = magnitude * sin(direction);
   by = f.magnitude * sin(f.direction);
 
