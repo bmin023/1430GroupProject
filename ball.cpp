@@ -46,3 +46,53 @@ void ball_t::move()
 void ball_t::applyForce(force_t force) {
   vec.apply(force);
 }
+
+
+Ball::Ball()
+{
+  color = RED;
+  center = vec2(100, 50);
+  vel = vec2(0, 1);
+  radius = 10;
+}
+
+Ball::Ball(vec2 c, color_t col, vec2 v, double r)
+{
+  center = c;
+  color = col;
+  vel = v;
+  radius = r;
+}
+
+void Ball::draw(SDL_Plotter &g)
+{
+  double i, angle, x1, y1;
+
+  // Only calculate half the circle
+  //  and in the Draw Rect call, mirror it across the x axis.
+  for (i = 90; i < 270; i += 0.1)
+  {
+    // Basically, using trig to avoid using distance functions whenever possible
+    angle = i;
+    x1 = radius * cos(angle * PI / 180);
+    y1 = radius * sin(angle * PI / 180);
+    int y = center.y + y1;
+    for (int k = center.x + x1; k <= center.x - x1; k++)
+    {
+      if (k < g.getCol() && y < g.getRow() && k >= 0 && y >= 0)
+      {
+        g.plotPixel(k, y, color.R, color.B, color.G);
+      }
+    }
+  }
+}
+
+void Ball::move()
+{
+  center += vel;
+}
+
+void Ball::applyForce(vec2 force)
+{
+  vel += force;
+}

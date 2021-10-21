@@ -9,8 +9,8 @@ int main(int argc, char** argv)
 {
   SDL_Plotter g(500, 500);
   force_t a, b(5.4,PI/2);
-  ball_t ball;
-  ball.setForce(force_t(1, 0));
+  Ball ball;
+  ball.setForce(vec2(1, 0));
 
   cout << a.getMagnitude() << ' ' << a.getDirection() << endl;
   cout << b.getMagnitude() << ' ' << b.getDirection() << endl;
@@ -25,20 +25,20 @@ int main(int argc, char** argv)
     g.update();
     ball.setColor(color_t(255,255,255));
     ball.draw(g);
-    ball.applyForce(GRAVITY);
+    ball.applyForce(DOWN * 0.02);
     ball.move();
     ball.setColor(RED);
     ball.draw(g);
     if(ball.getCenter().y > g.getRow()-50) {
-      ball.applyForce(force_t(1, -PI / 2));
+      ball.applyForce(UP);
     }
     if(ball.getCenter().x > g.getCol()-10) {
-      ball.applyForce(force_t(1, PI));
+      ball.applyForce(LEFT);
     }
-    // else if (ball.getCenter().x < 10)
-    // {
-    //   ball.applyForce(force_t(1, 0));
-    // }
+    else if (ball.getCenter().x < 10)
+    {
+      ball.applyForce(RIGHT);
+    }
   }
   return 0;
 }
