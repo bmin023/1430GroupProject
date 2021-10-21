@@ -29,7 +29,7 @@ int main(int argc, char** argv)
     ball.move();
     ball.setColor(RED);
     ball.draw(g);
-    if(ball.getCenter().y > g.getRow()-50) {
+    if(ball.getCenter().y > g.getRow()-20) {
       ball.applyForce(UP);
     }
     if(ball.getCenter().x > g.getCol()-10) {
