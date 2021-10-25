@@ -1,0 +1,13 @@
+{
+  "files.associations": {
+    "iostream": "cpp",
+    "cmath": "cpp",
+    "*.tcc": "cpp",
+    "ostream": "cpp",
+    "compare": "cpp",
+    "optional": "cpp",
+    "memory": "cpp",
+    "numeric": "cpp"
+  },
+  "python.formatting.provider": "black"
+}

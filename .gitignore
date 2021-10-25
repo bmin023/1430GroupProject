@@ -1,8 +1,6 @@
-#VSCode
-.vscode/*
 # Local History for Visual Studio Code
 .history/
-bin/*
+
 
 #CLion (Fix if it looks wrong, I don't have CLion)
 /.idea/
