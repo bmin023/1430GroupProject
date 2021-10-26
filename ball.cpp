@@ -70,12 +70,11 @@ void Ball::draw(SDL_Plotter &g)
 
   // Only calculate half the circle
   //  and in the Draw Rect call, mirror it across the x axis.
-  for (i = 90; i < 270; i += 0.1)
+  for (i = PI / 2; i < 3*PI/2; i += 0.1)
   {
     // Basically, using trig to avoid using distance functions whenever possible
-    angle = i;
-    x1 = radius * cos(angle * PI / 180);
-    y1 = radius * sin(angle * PI / 180);
+    x1 = radius * cos(i);
+    y1 = radius * sin(i);
     int y = center.y + y1;
     for (int k = center.x + x1; k <= center.x - x1; k++)
     {
@@ -92,7 +91,12 @@ void Ball::move()
   center += vel;
 }
 
-void Ball::applyForce(vec2 force)
+void Ball::move(int dt)
 {
-  vel += force;
+  center += vel * dt;
+}
+
+void Ball::applyForce(vec2 force, int dt)
+{
+  vel += force * dt;
 }

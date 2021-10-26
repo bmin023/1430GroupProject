@@ -57,8 +57,10 @@ public:
   void setRadius(double r) { radius = r; }
 
   void applyForce(vec2 force);
+  void applyForce(vec2 force, int);
   void draw(SDL_Plotter &);
   void move();
+  void move(int);
 };
 
 #endif // BALL_H_INCLUDED
