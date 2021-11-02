@@ -6,6 +6,9 @@
 #include "ball.h"
 #include "SDL_Plotter.h"
 
+
+//Lucy was here
+
 int main(int argc, char** argv)
 {
   SDL_Plotter g(500, 500);
