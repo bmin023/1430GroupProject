@@ -4,7 +4,7 @@
 // We're making a 2d vector to try and make physics a little easier!
 #include <cmath>
 
-class vec2
+struct vec2
 {
 public:
   //Keeping x and y public so it has the same functionality as point_t.

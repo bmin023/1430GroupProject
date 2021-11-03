@@ -8,7 +8,7 @@ ball_t::ball_t()
   radius = 10;
 }
 
-ball_t::ball_t(point_t c, color_t col, force_t v, double r)
+ball_t::ball_t(point_t c, Color col, force_t v, double r)
 {
   center = c;
   color = col;
@@ -56,7 +56,7 @@ Ball::Ball()
   radius = 10;
 }
 
-Ball::Ball(vec2 c, color_t col, vec2 v, double r)
+Ball::Ball(vec2 c, Color col, vec2 v, double r)
 {
   center = c;
   color = col;

@@ -13,18 +13,18 @@ class ball_t
 {
 private:
   point_t center;
-  color_t color;
+  Color color;
   force_t vec;
   double radius;
 
 public:
   ball_t();
-  ball_t(point_t, color_t, force_t, double);
+  ball_t(point_t, Color, force_t, double);
 
   point_t getCenter() { return center; }
   void setCenter(point_t p) { center = p; }
-  color_t getColor() { return color; }
-  void setColor(color_t c) { color = c; }
+  Color getColor() { return color; }
+  void setColor(Color c) { color = c; }
   force_t getForce() { return vec; }
   void setForce(force_t f) { vec = f; }
   double getRadius() { return radius; }
@@ -39,18 +39,18 @@ class Ball
 {
 private:
   vec2 center;
-  color_t color;
+  Color color;
   vec2 vel;
   double radius;
 
 public:
   Ball();
-  Ball(vec2, color_t, vec2, double);
+  Ball(vec2, Color, vec2, double);
 
   vec2 getCenter() { return center; }
   void setCenter(vec2 p) { center = p; }
-  color_t getColor() { return color; }
-  void setColor(color_t c) { color = c; }
+  Color getColor() { return color; }
+  void setColor(Color c) { color = c; }
   vec2 getForce() { return vel; }
   void setForce(vec2 f) { vel = f; }
   double getRadius() { return radius; }

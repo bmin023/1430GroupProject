@@ -38,7 +38,7 @@ int main(int argc, char** argv)
     deltaTime = currentTime - lastTime;
 
     g.update();
-    ball.setColor(color_t(255,255,255));
+    ball.setColor(Color(255,255,255));
     ball.draw(g);
     ball.applyForce(DOWN * 0.01, deltaTime);
     ball.move(deltaTime);
