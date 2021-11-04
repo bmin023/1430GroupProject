@@ -91,3 +91,11 @@ double vec2::direction() const
 vec2 vec2::normalized() const {
   return *this/magnitude();
 }
+
+double vec2::dot(const vec2 &other) const {
+  return x*other.x + y*other.y;
+}
+
+vec2 vec2::lerp(const vec2 &other, double t) const {
+  return *this + (other-*this)*t;
+}
