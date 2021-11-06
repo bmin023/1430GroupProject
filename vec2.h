@@ -52,7 +52,7 @@ public:
   double magnitude() const;
   double direction() const;
 
-  //Dot product. Usefule for two things.
+  //Dot product. Useful for two things.
   //1. You can find out if two vectors are pointing in the same direction.
   //  This is true if the dot product is positive. If it's negative, they're not.
   //2. You can project one vector onto another. This is useful for collisions.
