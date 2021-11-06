@@ -26,7 +26,7 @@ public:
   Shape(ShapeType type, vec2 size);
   //Almost all of these will differ based on the shape type.
   //So each will have some sort of if(type==CIRCLE) statement.
-  void draw(SDL_Plotter &g);
+  void draw(SDL_Plotter &g, vec2 pos);
   //isColliding will be called by the GO. 
   bool isColliding(Shape &other);
   //Get Projection is where magic happens. Given an axis,
