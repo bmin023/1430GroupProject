@@ -45,7 +45,7 @@ private:
   // by a certain amount every frame, you would multiply the amount by
   // deltatime for proper physics. It's the time component in 
   // position = position + velocity*time 
-  double deltaTime = 0.0;
+  int deltaTime = 0;
 
   // Move should be called in update.
   // Depending on the moveMethod, move the object's center.

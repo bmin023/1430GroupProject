@@ -4,20 +4,23 @@
 #include "GO.h"
 #include <vector>
 #include "SDL_Plotter.h"
+#include <chrono>
 
-const SCREEN_WIDTH = 800;
-const SCREEN_HEIGHT = 600;
-const LAYERS = 4;
+const int SCREEN_WIDTH = 800;
+const int SCREEN_HEIGHT = 600;
+const int LAYERS = 4;
 
 //GameControl class - Aaron
 // (Obviously change out my documentation for your own)
 class GameControl
 {
   private:
-    SDL_Plotter g(SCREEN_WIDTH, SCREEN_HEIGHT);
+    SDL_Plotter g;
     vector<GO> gameObjects[LAYERS];
+    int getTime();
+    int lastTime;
   public:
-    GameControl();
+    GameControl(): g(SCREEN_WIDTH,SCREEN_HEIGHT){lastTime = getTime();};
     //Add a game object to the gameObjects vector
     // Return back that game object so that we can mess with it later.
     GO& Spawn(GO gameObject, int layer);
@@ -30,6 +33,7 @@ class GameControl
     // Eventually this will also handle collisions.
     // But for now, it just updates the screen.
     void Update();
-}
 
-#endif // GAMECONTROL_H_INCLUDED
+};
+
+#endif // GAMECONTROL_H_INCLUDED 
