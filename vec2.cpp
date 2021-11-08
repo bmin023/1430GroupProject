@@ -99,3 +99,18 @@ double vec2::dot(const vec2 &other) const {
 vec2 vec2::lerp(const vec2 &other, double t) const {
   return *this + (other-*this)*t;
 }
+
+Edge::Edge(const vec2 a, const vec2 b)
+{
+  p1 = a;
+  p2 = b;
+}
+
+double Edge::Evaluate(double x) const
+{
+  return p1.y + (p2.y - p1.y) * (x - p1.x) / (p2.x - p1.x);
+}
+
+vec2 Edge::GetNormal() const {
+  return vec2(p2.y - p1.y, -(p2.x - p1.x));
+}

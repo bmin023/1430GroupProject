@@ -63,6 +63,20 @@ public:
   vec2 lerp(const vec2 &, double) const;
 };
 
+
+//Another class. This one takes two points to make a line.
+//More shape stuff really. Will help make the dream of polygons a reality.
+struct Edge
+{
+public:
+  vec2 p1;
+  vec2 p2;
+  Edge(vec2 p1, vec2 p2);
+  Edge();
+  double Evaluate(double x) const;
+  vec2 GetNormal() const;
+};
+
 const vec2 UP(0, -1);
 const vec2 DOWN(0, 1);
 const vec2 RIGHT(1, 0);
