@@ -7,6 +7,7 @@
 
 struct Physics
 {
+  Physics(){}
   Physics(vec2 velocity, double bounce, double mass, bool canCollide) {
     this->velocity = velocity;
     this->bounce = bounce;
@@ -57,7 +58,6 @@ private:
 public:
   //Constructor
   GO(vec2 center, Shape shape);
-
   //Setters
 
   //Set DeltaTime should be called before every update by the gamecontroller.
@@ -96,4 +96,5 @@ public:
 
 };
 
+const Physics DEFAULT_PHYSICS = Physics(ZERO, 1, 1, false);
 #endif // GO_H_INCLUDED

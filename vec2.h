@@ -81,5 +81,5 @@ const vec2 UP(0, -1);
 const vec2 DOWN(0, 1);
 const vec2 RIGHT(1, 0);
 const vec2 LEFT(-1, 0);
-
+const vec2 ZERO(0,0);
 #endif // VEC2_H_INCLUDED
