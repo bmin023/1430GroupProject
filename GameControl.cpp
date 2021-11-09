@@ -19,10 +19,10 @@ vector<GO>& GameControl::GetLayer(int layer){
     return gameObjects[layer];
 }
 int GameControl::getTime(){
-    return chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch()).count();
+    return chrono::duration_cast<chrono::nanoseconds>(chrono::system_clock::now().time_since_epoch()).count();
 }
 void GameControl::Update(){
-    int deltaTime = getTime() - lastTime;
+    double deltaTime = (static_cast<double>(getTime() - lastTime)) /100000;
     for (int i = 0; i < LAYERS; i++){
         for (int j = 0; j < gameObjects[i].size(); j++){
             gameObjects[i].at(j).setDeltaTime(deltaTime);
