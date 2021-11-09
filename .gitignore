@@ -26,3 +26,5 @@ build/
 !default.perspectivev3
 *.xccheckout
 xcuserdata/
+groupproject.cpp
+CMakeLists.txt
