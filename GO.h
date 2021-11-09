@@ -62,7 +62,7 @@ public:
 
   //Set DeltaTime should be called before every update by the gamecontroller.
   //That way physics are nice and consistent.
-  void setDeltaTime(double deltaTime);
+  void setDeltaTime(int deltaTime);
   void setCenter(vec2 center);
   void setPhysics(Physics physics);
   void setMoveMethod(MoveMethod moveMethod);

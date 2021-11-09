@@ -10,7 +10,7 @@
 
 GO& GameControl::Spawn(GO gameObject, int layer){
     gameObjects[layer].push_back(gameObject);
-    return gameObject;
+    return gameObjects[layer].back();
 }
 void GameControl::Delete(int layer, int index){
     gameObjects[layer].erase(gameObjects->begin()+index);

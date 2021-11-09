@@ -27,15 +27,15 @@ int main(int argc, char** argv)
 
   //To spawn a ball every second, if time(0) - now > NUM_BALLS then spawn a ball
   
-  startTime = chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch()).count();
-  lastTime = chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch()).count();
+  startTime = chrono::duration_cast<chrono::nanoseconds>(chrono::system_clock::now().time_since_epoch()).count();
+  lastTime = chrono::duration_cast<chrono::nanoseconds>(chrono::system_clock::now().time_since_epoch()).count();
   while(!g.getQuit()) {
     if(g.kbhit()) {
       g.getKey();
     }
-    currentTime = chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch()).count();
-    lastTime = chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch()).count();
-    deltaTime = currentTime - lastTime;
+    currentTime = chrono::duration_cast<chrono::nanoseconds>(chrono::system_clock::now().time_since_epoch()).count();
+    deltaTime = (currentTime - lastTime)/90000;
+    lastTime = chrono::duration_cast<chrono::nanoseconds>(chrono::system_clock::now().time_since_epoch()).count();
 
     g.update();
     ball.setColor(Color(255,255,255));
