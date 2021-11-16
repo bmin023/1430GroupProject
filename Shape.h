@@ -20,8 +20,8 @@ private:
   vector<vec2> relativeVertices;
 
 public:
-  Shape(int sides, double radius, Color color);
-  Shape(int sides, double radius);
+  Shape(int sides, double radius, Color color = RED);
+  Shape();
   //Almost all of these will differ based on the shape type.
   //So each will have some sort of if statement.
   void draw(SDL_Plotter &g, vec2 pos) const;
