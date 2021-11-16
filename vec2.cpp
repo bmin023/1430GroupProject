@@ -83,6 +83,11 @@ double vec2::magnitude() const
   return sqrt(pow(x, 2) + pow(y, 2));
 }
 
+double vec2::sqrMagnitude() const
+{
+  return pow(x, 2) + pow(y, 2);
+}
+
 double vec2::direction() const
 {
   return atan(y / x);

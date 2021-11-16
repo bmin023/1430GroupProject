@@ -50,6 +50,7 @@ public:
   //Can still get direction and magnitude if you like.
   
   double magnitude() const;
+  double sqrMagnitude() const;
   double direction() const;
 
   //Dot product. Useful for two things.
