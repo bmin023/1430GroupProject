@@ -56,3 +56,8 @@ void GO::Translate(double x, double y){
 void GO::Translate(vec2 delta){
     center += delta;
 }
+
+void GO::ApplyForce(vec2 force){
+    physics.velocity += force;
+}
+
