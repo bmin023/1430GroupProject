@@ -8,6 +8,7 @@
 
 //Shape Class - David
 // (Obviously change out my documentation for your own once you've implemented)
+const double PI = 3.14159;
 class Shape
 {
 private:
