@@ -34,6 +34,8 @@ class GameControl
     // But for now, it just updates the screen.
     void Update();
 
+    void layerCollide(int layer, int otherlayer);
+
 };
 
 #endif // GAMECONTROL_H_INCLUDED 
