@@ -1,7 +1,5 @@
 #include "GO.h"
 
-void GO::update(SDL_Plotter& g){}
-
 GO::GO(vec2 center, Shape shape){
     this->center = center;
     this->shape = shape;
@@ -61,3 +59,32 @@ void GO::ApplyForce(vec2 force){
     physics.velocity += force;
 }
 
+//Update should be called every frame.
+//It should move the object and draw to screen. (Only if visible)
+void GO::update(SDL_Plotter& g){
+    //check if the object is moving
+    //if it is moving, cover up the old "frame" and draw new one
+    if(isMoving()){
+        //Linear movement
+        if(isVisible() && moveMethod == LINEAR){
+            vec2 linear = destination - getCenter();
+            linear.normalized();
+            setCenter(getCenter() + (linear * deltaTime));
+            shape.draw(g, center);
+        }
+        //Ease movement
+        if(isVisible() && moveMethod == EASE){
+            setCenter(getCenter() + center.lerp(destination, .25));
+            shape.draw(g, center);
+        }
+        //Physics movement
+        if(isVisible() && moveMethod == PHYSICS){
+            
+        }
+    }
+    
+}
+
+//Use their shapes to check collision and apply force if they are.
+//The GameController will call this function for you if it thinks the two are colliding.
+void GO::CheckCollision(GO* other);
