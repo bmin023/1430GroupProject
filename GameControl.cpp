@@ -33,3 +33,14 @@ void GameControl::Update(){
     lastTime = getTime(); //gets the time of the last frame
 
 }
+void GameControl::layerCollide(int layer, int otherlayer){
+    //checks if they are colliding
+    //more informaiton on this later. CheckCollision(gameObject)
+    for (int i = 0; i < gameObjects[layer].size(); i++){
+        for (int j = 0; j < gameObjects[otherlayer].size(); j++){
+            //call the check collision function that lucy the ray made.
+            gameObjects[layer].at(i).CheckCollision(&gameObjects[otherlayer].at(j));
+        }
+    }
+
+}
