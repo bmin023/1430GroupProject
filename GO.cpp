@@ -64,27 +64,44 @@ void GO::ApplyForce(vec2 force){
 void GO::update(SDL_Plotter& g){
     //check if the object is moving
     //if it is moving, cover up the old "frame" and draw new one
+    //if it has reached its destination, isMoving = false
+    //still draw things that aren't moving
     if(isMoving()){
+        shape.setColor(BLANK);
+        shape.draw(g, center);
+        
         //Linear movement
         if(isVisible() && moveMethod == LINEAR){
             vec2 linear = destination - getCenter();
-            linear.normalized();
+            linear = linear.normalized();
             setCenter(getCenter() + (linear * deltaTime));
-            shape.draw(g, center);
         }
         //Ease movement
         if(isVisible() && moveMethod == EASE){
-            setCenter(getCenter() + center.lerp(destination, .25));
-            shape.draw(g, center);
+            setCenter(center.lerp(destination, .25));
         }
         //Physics movement
         if(isVisible() && moveMethod == PHYSICS){
-            
+            setCenter(getCenter() + physics.velocity);
         }
     }
     
+    if(center.x == destination.x && center.y == destination.y){
+        moving = false;
+    }
+    
+    shape.setColor(RED);
+    shape.draw(g, center);
 }
 
 //Use their shapes to check collision and apply force if they are.
 //The GameController will call this function for you if it thinks the two are colliding.
-void GO::CheckCollision(GO* other);
+void GO::CheckCollision(GO* other){
+    if(physics.canCollide && other->physics.canCollide){
+        if(shape.isColliding(other->shape)){
+            //case for if one has physics moving type
+            cout << "yee haw" << endl;
+            //case for if both have physics moving types
+        }
+    }
+}
