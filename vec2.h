@@ -76,6 +76,7 @@ public:
   Edge();
   double Evaluate(double x) const;
   vec2 GetNormal() const;
+  bool ContainsX(double x) const;
 };
 
 const vec2 UP(0, -1);

@@ -107,8 +107,16 @@ vec2 vec2::lerp(const vec2 &other, double t) const {
 
 Edge::Edge(const vec2 a, const vec2 b)
 {
-  p1 = a;
-  p2 = b;
+  if(a.x < b.x)
+  {
+    p1 = a;
+    p2 = b;
+  }
+  else
+  {
+    p1 = b;
+    p2 = a;
+  }
 }
 
 double Edge::Evaluate(double x) const
@@ -118,4 +126,8 @@ double Edge::Evaluate(double x) const
 
 vec2 Edge::GetNormal() const {
   return vec2(p2.y - p1.y, -(p2.x - p1.x));
+}
+
+bool Edge::ContainsX(double x) const {
+  return p1.x <= x && x <= p2.x;
 }
