@@ -17,8 +17,10 @@ class GameControl
   private:
     SDL_Plotter g;
     vector<GO> gameObjects[LAYERS];
-    int getTime();
-    int lastTime;
+    unsigned int getTime();
+    unsigned int lastTime;
+    char currentKey;
+    bool quit;
   public:
     /*
     * description: Creates the screen and it initializest the game control
@@ -35,7 +37,7 @@ class GameControl
     * precondition: there is a game object and a layer
     * postcondition: the game object is now made at the layer requested
     */
-    GO& Spawn(GO gameObject, int layer);
+    GO* Spawn(GO gameObject, int layer);
     //Remove a game object from the gameObjects vector
     /*
     * description: deletes a game object from game objects vector
@@ -71,6 +73,9 @@ class GameControl
     */
     void layerCollide(int layer, int otherlayer);
 
+    bool getQuit();
+    char CurrentKey();
+    void Quit();
 };
 
 #endif // GAMECONTROL_H_INCLUDED 

@@ -7,6 +7,7 @@
 #include "color.h"
 #include "force.h"
 #include "vec2.h"
+#include "Shape.h"
 
 #include "SDL_Plotter.h"
 class ball_t

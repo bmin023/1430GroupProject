@@ -6,19 +6,27 @@ Shape::Shape(int sides, double radius, Color color)
   this->sides = sides;
   this->radius = radius;
   this->color = color;
+  this->angle = 0;
+  generateVertices();
 }
 Shape::Shape()
 {
   this->sides = 10;
   this->radius = 10;
+  this->angle = 0;
   this->color = RED;
+  generateVertices();
 }
 
 void Shape::VerticalLine(SDL_Plotter &g, int x, int y1, int y2) const
 {
-  for(int y = y1; y <= y2; y++)
+  if(y1>y2) {
+    swap(y1,y2);
+  }
+  for (int y = y1; y <= y2; y++)
   {
-    if (x < g.getCol() && y < g.getRow() && x >= 0 && y >= 0) {
+    if (x < g.getCol() && y < g.getRow() && x >= 0 && y >= 0)
+    {
       g.plotPixel(x, y, color.R, color.G, color.B);
     }
   }
@@ -29,9 +37,10 @@ void Shape::VerticalLine(SDL_Plotter &g, int x, int y1, int y2) const
 void Shape::draw(SDL_Plotter &g, vec2 pos) const
 {
   int count = 0;
-  Edge e,e1, e2;
-  //Circle
-  if(sides>=10) {
+  Edge e, e1, e2;
+  // Circle
+  if (sides >= 10)
+  {
     double i, angle, x1, y1;
 
     // Only calculate half the circle
@@ -46,37 +55,43 @@ void Shape::draw(SDL_Plotter &g, vec2 pos) const
       VerticalLine(g, center->x + x1, center->y + y1, center->y - y1);
     }
   }
-  else {
-    //Using relativeVertices, create a filled in polygon
-    for(int x = pos.x-radius; x <= pos.x+radius; x++)
+  else
+  {
+    // Using relativeVertices, create a filled in polygon
+    for (int x = -radius; x <= radius; x++)
     {
       count = 0;
-      //Find vertices that cross this x coordinate
-      for(int i = 0; i < sides; i++)
+      // Find vertices that cross this x coordinate
+      for (int i = 0; i < sides; i++)
       {
-        e = Edge(relativeVertices[i], relativeVertices[(i+1)%sides]);
-        if(e.ContainsX(x)) {
-          if(count==0) {
+        e = Edge(relativeVertices[i], relativeVertices[(i + 1) % sides]);
+        if (e.ContainsX(x))
+        {
+          if (count == 0)
+          {
             e1 = e;
           }
-          else if(count==1) {
+          else if (count == 1)
+          {
             e2 = e;
           }
           count++;
         }
       }
-      //Make better later
-      if(count>0) {
-        //Draw the line between the two vertices
-        if(count==1) {
+      // Make better later
+      if (count > 0)
+      {
+        // Draw the line between the two vertices
+        if (count == 1)
+        {
           VerticalLine(g, x, e1.p1.y, e1.p2.y);
         }
-        else if(count==2) {
-          VerticalLine(g, x, e1.Evaluate(x), e2.Evaluate(x));
+        else if (count == 2)
+        {
+          VerticalLine(g, x+pos.x, e1.Evaluate(x)+pos.y, e2.Evaluate(x)+pos.y);
         }
       }
     }
-
   }
 }
 void Shape::draw(SDL_Plotter &g) const
@@ -86,28 +101,36 @@ void Shape::draw(SDL_Plotter &g) const
 // isColliding will be called by the GO.
 bool Shape::isColliding(const Shape &other) const
 {
-  bool isColliding = false;
+  bool isColliding = true;
   vec2 axis, otherAxis;
   double min, max, otherMin, otherMax;
-  //Get the axes
+  // Get the axes
   axis = getCollisionAxis(other);
   otherAxis = other.getCollisionAxis(*this);
-  //Get the projections
+  // Get the projections
   getProjection(axis, min, max);
-  other.getProjection(otherAxis, otherMin, otherMax);
-  //Check if min and max overlap with otherMin and otherMax
+  other.getProjection(axis, otherMin, otherMax);
+  // Check if min and max overlap with otherMin and otherMax
   if (min <= otherMax && max <= otherMin)
   {
     isColliding = false;
   }
   else
   {
-    isColliding = true;
+    // Get the projections
+    getProjection(otherAxis, min, max);
+    other.getProjection(otherAxis, otherMin, otherMax);
+    // Check if min and max overlap with otherMin and otherMax
+    if (min <= otherMax && max <= otherMin)
+    {
+      isColliding = false;
+    }
   }
   return isColliding;
 }
 
-vec2 Shape::getCollisionAxis(const Shape &other) const {
+vec2 Shape::getCollisionAxis(const Shape &other) const
+{
   int max;
   Edge currEdge, bestEdge;
   int size;
@@ -147,19 +170,20 @@ vec2 Shape::getCollisionAxis(const Shape &other) const {
 void Shape::getProjection(vec2 axis, double &min, double &max) const
 {
   // If the shape is a circle, just use the center and radius.
-  if(sides >= 10)
+  if (sides >= 10)
   {
     min = center->dot(axis) - radius;
     max = center->dot(axis) + radius;
   }
-  else {
-    //Otherwise, go through each vertex and find the min and max.
-    for(int i = 0; i < sides; i++)
+  else
+  {
+    // Otherwise, go through each vertex and find the min and max.
+    for (int i = 0; i < sides; i++)
     {
       int dot = relativeVertices[i].dot(axis);
-      if(dot < min)
+      if (dot < min)
         min = dot;
-      if(dot > max)
+      if (dot > max)
         max = dot;
     }
   }
@@ -197,10 +221,12 @@ void Shape::setColor(Color color)
 void Shape::setRadius(double radius)
 {
   this->radius = radius;
+  generateVertices();
 }
 void Shape::setAngle(double angle)
 {
   this->angle = angle;
+  generateVertices();
 }
 void Shape::setCenter(vec2 &center)
 {
@@ -209,4 +235,5 @@ void Shape::setCenter(vec2 &center)
 void Shape::rotate(double angle)
 {
   this->angle += angle;
+  generateVertices();
 }

@@ -53,7 +53,7 @@ private:
   //If it is ease or linear, check the destination and move towards it.
   //If it is physics, move the object's center according to its velocity.
   //All movements should take into account deltaTime.
-  void move();
+  void Collide(GO &other);
 
 public:
   //Constructor
@@ -92,7 +92,7 @@ public:
 
   //Use their shapes to check collision and apply force if they are.
   //The GameController will call this function for you if it thinks the two are colliding.
-  void CheckCollision(GO* other);
+  void CheckCollision(GO& other);
 
 };
 

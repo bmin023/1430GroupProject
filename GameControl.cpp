@@ -8,9 +8,9 @@
 #include "GameControl.h"
 
 
-GO& GameControl::Spawn(GO gameObject, int layer){
+GO* GameControl::Spawn(GO gameObject, int layer){
     gameObjects[layer].push_back(gameObject);
-    return gameObjects[layer].back();
+    return &gameObjects[layer].back();
 }
 void GameControl::Delete(int layer, int index){
     gameObjects[layer].erase(gameObjects->begin()+index);
@@ -18,11 +18,19 @@ void GameControl::Delete(int layer, int index){
 vector<GO>& GameControl::GetLayer(int layer){
     return gameObjects[layer];
 }
-int GameControl::getTime(){
-    return chrono::duration_cast<chrono::nanoseconds>(chrono::system_clock::now().time_since_epoch()).count();
+unsigned int GameControl::getTime(){
+    return chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch()).count();
 }
 void GameControl::Update(){
-    double deltaTime = (static_cast<double>(getTime() - lastTime)) /100000;
+    if(g.getQuit()) {
+        quit = true;
+    }
+    if(g.kbhit()) {
+        currentKey == g.getKey();
+    }
+    double deltaTime = (static_cast<double>(getTime() - lastTime)) /5;
+    lastTime = getTime(); //gets the time of the last frame
+    cout << endl;
     for (int i = 0; i < LAYERS; i++){
         for (int j = 0; j < gameObjects[i].size(); j++){
             gameObjects[i].at(j).setDeltaTime(deltaTime);
@@ -30,7 +38,6 @@ void GameControl::Update(){
         }
     }
     g.update();
-    lastTime = getTime(); //gets the time of the last frame
 
 }
 void GameControl::layerCollide(int layer, int otherlayer){
@@ -39,8 +46,20 @@ void GameControl::layerCollide(int layer, int otherlayer){
     for (int i = 0; i < gameObjects[layer].size(); i++){
         for (int j = 0; j < gameObjects[otherlayer].size(); j++){
             //call the check collision function that lucy the ray made.
-            gameObjects[layer].at(i).CheckCollision(&gameObjects[otherlayer].at(j));
+            gameObjects[layer].at(i).CheckCollision(gameObjects[otherlayer].at(j));
         }
     }
 
+}
+
+bool GameControl::getQuit(){
+    return quit;
+}
+
+char GameControl::CurrentKey(){
+    return currentKey;
+}
+
+void GameControl::Quit(){
+    quit = true;
 }

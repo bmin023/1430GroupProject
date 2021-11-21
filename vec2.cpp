@@ -105,6 +105,11 @@ vec2 vec2::lerp(const vec2 &other, double t) const {
   return *this + (other-*this)*t;
 }
 
+Edge::Edge() {
+  p1 = vec2(0, 0);
+  p2 = vec2(0, 0);
+}
+
 Edge::Edge(const vec2 a, const vec2 b)
 {
   if(a.x < b.x)
