@@ -4,7 +4,7 @@ GO::GO(vec2 center, Shape shape)
 {
     this->center = center;
     this->shape = shape;
-    shape.setCenter(center);
+    this->shape.setCenter(&(this->center));
     physics = DEFAULT_PHYSICS;
 }
 void GO::setDeltaTime(double deltaTime)
@@ -128,8 +128,12 @@ void GO::CheckCollision(GO& other)
     {
         if (shape.isColliding(other.shape))
         {
+            cout << "Collision!" << endl;
             Collide(other);
             other.Collide(*this);
+        }
+        else {
+            cout << "No collision!" << endl;
         }
     }
 }

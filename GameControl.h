@@ -20,7 +20,7 @@ class GameControl
     unsigned int getTime();
     unsigned int lastTime;
     char currentKey;
-    bool quit;
+    bool quit = false;
   public:
     /*
     * description: Creates the screen and it initializest the game control

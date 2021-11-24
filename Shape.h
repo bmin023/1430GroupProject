@@ -50,7 +50,7 @@ public:
   // Setters
   void setColor(Color color);
   void setRadius(double radius);
-  void setCenter(vec2 &);
+  void setCenter(vec2*);
   void setAngle(double angle);
   void rotate(double angle);
 };
