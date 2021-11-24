@@ -46,7 +46,7 @@ private:
   // by a certain amount every frame, you would multiply the amount by
   // deltatime for proper physics. It's the time component in 
   // position = position + velocity*time 
-  int deltaTime = 0;
+  double deltaTime = 0;
 
   // Move should be called in update.
   // Depending on the moveMethod, move the object's center.
@@ -62,7 +62,7 @@ public:
 
   //Set DeltaTime should be called before every update by the gamecontroller.
   //That way physics are nice and consistent.
-  void setDeltaTime(int deltaTime);
+  void setDeltaTime(double deltaTime);
   void setCenter(vec2 center);
   void setPhysics(Physics physics);
   void setMoveMethod(MoveMethod moveMethod);

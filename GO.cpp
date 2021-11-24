@@ -7,7 +7,7 @@ GO::GO(vec2 center, Shape shape)
     shape.setCenter(center);
     physics = DEFAULT_PHYSICS;
 }
-void GO::setDeltaTime(int deltaTime)
+void GO::setDeltaTime(double deltaTime)
 {
     this->deltaTime = deltaTime;
 }
@@ -96,12 +96,12 @@ void GO::update(SDL_Plotter &g)
         {
             vec2 linear = destination - getCenter();
             linear = linear.normalized();
-            center += (linear*1.2);
+            center += (linear*deltaTime*1.2);
         }
         // Ease movement
         else if (moveMethod == EASE)
         {
-            setCenter(center.lerp(destination, .25 * deltaTime));
+            setCenter(center.lerp(destination, .01 * deltaTime));
         }
         // Physics movement
         else if (moveMethod == PHYSICS)
