@@ -23,7 +23,7 @@ unsigned int GameControl::getTime(){
 }
 void GameControl::Update(){
     if(g.getQuit()) {
-        quit = true;
+        Quit();
     }
     if(g.kbhit()) {
         currentKey == g.getKey();

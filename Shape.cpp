@@ -52,7 +52,7 @@ void Shape::draw(SDL_Plotter &g, vec2 pos) const
       x1 = radius * cos(angle * PI / 180);
       y1 = radius * sin(angle * PI / 180);
       int x = center->x + x1;
-      VerticalLine(g, center->x + x1, center->y + y1, center->y - y1);
+      VerticalLine(g, pos.x + x1, pos.y + y1, pos.y - y1);
     }
   }
   else
@@ -105,8 +105,7 @@ bool Shape::isColliding(const Shape &other) const
   vec2 axis, otherAxis;
   double min, max, otherMin, otherMax;
   // Get the axes
-  axis = getCollisionAxis(other);
-  otherAxis = other.getCollisionAxis(*this);
+  axis = getCollisionAxis(other).normalized();
   // Get the projections
   getProjection(axis, min, max);
   other.getProjection(axis, otherMin, otherMax);
@@ -117,6 +116,7 @@ bool Shape::isColliding(const Shape &other) const
   }
   else
   {
+    otherAxis = other.getCollisionAxis(*this).normalized();
     // Get the projections
     getProjection(otherAxis, min, max);
     other.getProjection(otherAxis, otherMin, otherMax);
@@ -141,7 +141,7 @@ vec2 Shape::getCollisionAxis(const Shape &other) const
   }
   else
   {
-    int max = -1000;
+    int max = -100000;
     size = sides;
     if (sides % 2 == 0)
     {
@@ -172,15 +172,17 @@ void Shape::getProjection(vec2 axis, double &min, double &max) const
   // If the shape is a circle, just use the center and radius.
   if (sides >= 10)
   {
-    min = center->dot(axis) - radius;
-    max = center->dot(axis) + radius;
+    min = (*center-axis*radius).dot(axis);
+    max = (*center+axis*radius).dot(axis);
   }
   else
   {
     // Otherwise, go through each vertex and find the min and max.
+    min = center->dot(axis);
+    max = center->dot(axis);
     for (int i = 0; i < sides; i++)
     {
-      int dot = relativeVertices[i].dot(axis);
+      int dot = (relativeVertices[i]+*center).dot(axis);
       if (dot < min)
         min = dot;
       if (dot > max)
@@ -228,9 +230,9 @@ void Shape::setAngle(double angle)
   this->angle = angle;
   generateVertices();
 }
-void Shape::setCenter(vec2 &center)
+void Shape::setCenter(vec2 *center)
 {
-  this->center = &center;
+  this->center = center;
 }
 void Shape::rotate(double angle)
 {
