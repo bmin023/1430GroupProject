@@ -8,9 +8,11 @@
 #include "GameControl.h"
 
 
-GO* GameControl::Spawn(GO gameObject, int layer){
+GO& GameControl::Spawn(GO gameObject, int layer){
     gameObjects[layer].push_back(gameObject);
-    return &gameObjects[layer].back();
+    GO& go = gameObjects[layer].back();
+    go.Init();
+    return go;
 }
 void GameControl::Delete(int layer, int index){
     gameObjects[layer].erase(gameObjects->begin()+index);

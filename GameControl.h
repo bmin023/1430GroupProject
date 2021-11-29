@@ -37,7 +37,7 @@ class GameControl
     * precondition: there is a game object and a layer
     * postcondition: the game object is now made at the layer requested
     */
-    GO* Spawn(GO gameObject, int layer);
+    GO& Spawn(GO gameObject, int layer);
     //Remove a game object from the gameObjects vector
     /*
     * description: deletes a game object from game objects vector

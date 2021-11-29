@@ -59,7 +59,7 @@ public:
   //Constructor
   GO(vec2 center, Shape shape);
   //Setters
-
+  void Init();
   //Set DeltaTime should be called before every update by the gamecontroller.
   //That way physics are nice and consistent.
   void setDeltaTime(double deltaTime);
@@ -96,5 +96,5 @@ public:
 
 };
 
-const Physics DEFAULT_PHYSICS = Physics(ZERO, 1, 1, true);
+const Physics DEFAULT_PHYSICS = Physics(ZERO, 3.5, 1, true);
 #endif // GO_H_INCLUDED
