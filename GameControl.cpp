@@ -17,6 +17,15 @@ GO& GameControl::Spawn(GO gameObject, int layer){
 void GameControl::Delete(int layer, int index){
     gameObjects[layer].erase(gameObjects->begin()+index);
 }
+void GameControl::Delete(GO& object, int layer) {
+    //Nice little linear search
+    bool found = false;
+    for (int i = 0; i < gameObjects[layer].size() && !found;i++) {
+        if(&(gameObjects[layer].at(i))==&object) {
+            gameObjects[layer].erase(gameObjects[layer].begin() + i);
+        }
+    }
+}
 vector<GO>& GameControl::GetLayer(int layer){
     return gameObjects[layer];
 }

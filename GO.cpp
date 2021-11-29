@@ -84,6 +84,7 @@ void GO::ApplyForce(vec2 force)
 void GO::update(SDL_Plotter &g)
 {
     colliding = false;
+    Color color = shape.getColor();
     // check if the object is moving
     // if it is moving, cover up the old "frame" and draw new one
     // if it has reached its destination, isMoving = false
@@ -118,7 +119,7 @@ void GO::update(SDL_Plotter &g)
     }
     if (visible)
     {
-        shape.setColor(RED);
+        shape.setColor(color);
         shape.draw(g, center);
     }
 }

@@ -133,7 +133,6 @@ vec2 Shape::getCollisionAxis(const Shape &other) const
 {
   int max;
   Edge currEdge, bestEdge;
-  int size;
   vec2 axis;
   if (sides >= 10)
   {
@@ -142,12 +141,7 @@ vec2 Shape::getCollisionAxis(const Shape &other) const
   else
   {
     int max = -100000;
-    size = sides;
-    if (sides % 2 == 0)
-    {
-      size /= 2;
-    }
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < sides; i++)
     {
       currEdge = Edge(relativeVertices[i], relativeVertices[(i + 1) % sides]);
       if (currEdge.GetNormal().dot(*other.center - *center) > max)
