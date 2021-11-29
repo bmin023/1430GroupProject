@@ -36,10 +36,5 @@ Color Color::HSV(int H, int S, int V)
   int G = (g + m) * 255;
   int B = (b + m) * 255;
 
-  std::cout << "New Color!" << std::endl;
-  std::cout << "R: " << R << std::endl;
-  std::cout << "G: " << G << std::endl;
-  std::cout << "B: " << B << std::endl;
-
   return Color(R, G, B);
 }

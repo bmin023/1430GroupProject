@@ -5,6 +5,7 @@ GO::GO(vec2 center, Shape shape)
     this->center = center;
     this->shape = shape;
     physics = DEFAULT_PHYSICS;
+    moveMethod = EASE;
 }
 void GO::Init() {
     this->shape.setCenter(&(this->center));
@@ -84,16 +85,13 @@ void GO::ApplyForce(vec2 force)
 void GO::update(SDL_Plotter &g)
 {
     colliding = false;
-    Color color = shape.getColor();
     // check if the object is moving
     // if it is moving, cover up the old "frame" and draw new one
     // if it has reached its destination, isMoving = false
     // still draw things that aren't moving
     if (isMoving() || moveMethod == PHYSICS)
     {
-        shape.setColor(BLANK);
-        shape.draw(g, center);
-
+        erase(g);
         // Linear movement
         if (moveMethod == LINEAR)
         {
@@ -119,9 +117,16 @@ void GO::update(SDL_Plotter &g)
     }
     if (visible)
     {
-        shape.setColor(color);
         shape.draw(g, center);
     }
+}
+
+void GO::erase(SDL_Plotter &g)
+{
+    Color color = shape.getColor();
+    shape.setColor(BLANK);
+    shape.draw(g, center);
+    shape.setColor(color);
 }
 
 // Use their shapes to check collision and apply force if they are.

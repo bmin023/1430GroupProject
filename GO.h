@@ -90,6 +90,8 @@ public:
   //It should move the object and draw to screen. (Only if visible) 
   void update(SDL_Plotter& g);
 
+  void erase(SDL_Plotter& g);
+
   //Use their shapes to check collision and apply force if they are.
   //The GameController will call this function for you if it thinks the two are colliding.
   void CheckCollision(GO& other);
