@@ -8,7 +8,7 @@ GO::GO(vec2 center, Shape shape)
     moveMethod = EASE;
 }
 void GO::Init() {
-    this->shape.setCenter(&(this->center));
+    shape.setCenter(&center);
 }
 void GO::setDeltaTime(double deltaTime)
 {
@@ -103,12 +103,15 @@ void GO::update(SDL_Plotter &g)
         else if (moveMethod == EASE)
         {
             setCenter(center.lerp(destination, .01 * deltaTime));
+            // setCenter(center.lerp(destination, .01));
         }
         // Physics movement
         else if (moveMethod == PHYSICS)
         {
             physics.velocity += DOWN * deltaTime * 0.01;
             center += physics.velocity * deltaTime;
+            // physics.velocity += DOWN *  0.03;
+            // center += physics.velocity;
         }
         if ((center - destination).sqrMagnitude() < 0.5)
         {
@@ -117,7 +120,7 @@ void GO::update(SDL_Plotter &g)
     }
     if (visible)
     {
-        shape.draw(g, center);
+        shape.draw(g);
     }
 }
 
@@ -125,7 +128,7 @@ void GO::erase(SDL_Plotter &g)
 {
     Color color = shape.getColor();
     shape.setColor(BLANK);
-    shape.draw(g, center);
+    shape.draw(g);
     shape.setColor(color);
 }
 

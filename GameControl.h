@@ -21,6 +21,7 @@ class GameControl
     unsigned int lastTime;
     char currentKey;
     bool quit = false;
+    void Reinitialize(int layer);
   public:
     /*
     * description: Creates the screen and it initializest the game control
