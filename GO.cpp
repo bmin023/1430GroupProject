@@ -4,8 +4,11 @@ GO::GO(vec2 center, Shape shape)
 {
     this->center = center;
     this->shape = shape;
-    this->shape.setCenter(&(this->center));
     physics = DEFAULT_PHYSICS;
+    moveMethod = EASE;
+}
+void GO::Init() {
+    this->shape.setCenter(&(this->center));
 }
 void GO::setDeltaTime(double deltaTime)
 {
@@ -88,9 +91,7 @@ void GO::update(SDL_Plotter &g)
     // still draw things that aren't moving
     if (isMoving() || moveMethod == PHYSICS)
     {
-        shape.setColor(BLANK);
-        shape.draw(g, center);
-
+        erase(g);
         // Linear movement
         if (moveMethod == LINEAR)
         {
@@ -106,6 +107,7 @@ void GO::update(SDL_Plotter &g)
         // Physics movement
         else if (moveMethod == PHYSICS)
         {
+            physics.velocity += DOWN * deltaTime * 0.01;
             center += physics.velocity * deltaTime;
         }
         if ((center - destination).sqrMagnitude() < 0.5)
@@ -115,9 +117,16 @@ void GO::update(SDL_Plotter &g)
     }
     if (visible)
     {
-        shape.setColor(RED);
         shape.draw(g, center);
     }
+}
+
+void GO::erase(SDL_Plotter &g)
+{
+    Color color = shape.getColor();
+    shape.setColor(BLANK);
+    shape.draw(g, center);
+    shape.setColor(color);
 }
 
 // Use their shapes to check collision and apply force if they are.
@@ -128,12 +137,8 @@ void GO::CheckCollision(GO& other)
     {
         if (shape.isColliding(other.shape))
         {
-            cout << "Collision!" << endl;
             Collide(other);
             other.Collide(*this);
-        }
-        else {
-            cout << "No collision!" << endl;
         }
     }
 }

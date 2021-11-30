@@ -64,6 +64,10 @@ public:
   //                                                           *
   //************************************************************
   GO(vec2 center, Shape shape);
+  //Setters
+  void Init();
+  //Set DeltaTime should be called before every update by the gamecontroller.
+  //That way physics are nice and consistent.
   
   //Setter Functions
   //************************************************************
@@ -241,11 +245,13 @@ public:
   //************************************************************
   void update(SDL_Plotter& g);
 
+  void erase(SDL_Plotter& g);
+
   //Use their shapes to check collision and apply force if they are.
   //The GameController will call this function for you if it thinks the two are colliding.
   void CheckCollision(GO& other);
 
 };
 
-const Physics DEFAULT_PHYSICS = Physics(ZERO, 1, 1, true);
+const Physics DEFAULT_PHYSICS = Physics(ZERO, 3.5, 1, true);
 #endif // GO_H_INCLUDED

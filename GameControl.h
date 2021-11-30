@@ -6,8 +6,8 @@
 #include "SDL_Plotter.h"
 #include <chrono>
 
-const int SCREEN_WIDTH = 800;
-const int SCREEN_HEIGHT = 600;
+const int SCREEN_WIDTH = 600;
+const int SCREEN_HEIGHT = 800;
 const int LAYERS = 4;
 
 //GameControl class - Aaron
@@ -28,7 +28,7 @@ class GameControl
     * precondition: a gamecontrol is made w/out parameters
     * postcondition: the screen is now made
     */
-    GameControl(): g(SCREEN_WIDTH,SCREEN_HEIGHT){lastTime = getTime();};
+    GameControl(): g(SCREEN_HEIGHT,SCREEN_WIDTH){lastTime = getTime();};
     //Add a game object to the gameObjects vector
     // Return back that game object so that we can mess with it later.
     /*
@@ -37,7 +37,7 @@ class GameControl
     * precondition: there is a game object and a layer
     * postcondition: the game object is now made at the layer requested
     */
-    GO* Spawn(GO gameObject, int layer);
+    GO& Spawn(GO gameObject, int layer);
     //Remove a game object from the gameObjects vector
     /*
     * description: deletes a game object from game objects vector
@@ -46,6 +46,7 @@ class GameControl
     * postcondition: the object is now not alive
     */
     void Delete(int layer, int index);
+    void Delete(GO &, int);
     // Return a layer of game objects
     /*
     * description: grabs a layer of game objects
