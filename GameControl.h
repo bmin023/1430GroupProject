@@ -21,6 +21,9 @@ class GameControl
     unsigned int lastTime;
     char currentKey;
     bool quit = false;
+    bool down,downed = false;
+    bool kbhit = false;
+
     void Reinitialize(int layer);
   public:
     /*
@@ -76,8 +79,11 @@ class GameControl
     void layerCollide(int layer, int otherlayer);
 
     bool getQuit();
-    char CurrentKey();
+    bool Key(char);
+    bool KeyDown(char);
     void Quit();
 };
+
+const vec2 TOP_CENTER = RIGHT * (SCREEN_WIDTH / 2);
 
 #endif // GAMECONTROL_H_INCLUDED 

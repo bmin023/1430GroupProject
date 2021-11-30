@@ -120,15 +120,16 @@ void GO::update(SDL_Plotter &g)
     }
     if (visible)
     {
-        shape.draw(g);
+        shape.draw(g,center);
     }
+    Init();
 }
 
 void GO::erase(SDL_Plotter &g)
 {
     Color color = shape.getColor();
     shape.setColor(BLANK);
-    shape.draw(g);
+    shape.draw(g,center);
     shape.setColor(color);
 }
 

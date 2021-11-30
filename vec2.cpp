@@ -93,6 +93,10 @@ double vec2::direction() const
   return atan(y / x);
 }
 
+vec2 vec2::Angle(double angle) {
+  return vec2(cos(angle), sin(angle));
+}
+
 vec2 vec2::normalized() const {
   return *this/magnitude();
 }

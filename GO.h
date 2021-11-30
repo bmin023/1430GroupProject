@@ -98,5 +98,5 @@ public:
 
 };
 
-const Physics DEFAULT_PHYSICS = Physics(ZERO, 3.5, 1, true);
+const Physics DEFAULT_PHYSICS = Physics(ZERO, 2.5, 1, true);
 #endif // GO_H_INCLUDED

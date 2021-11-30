@@ -53,6 +53,8 @@ public:
   double sqrMagnitude() const;
   double direction() const;
 
+  static vec2 Angle(double angle);
+
   //Dot product. Useful for two things.
   //1. You can find out if two vectors are pointing in the same direction.
   //  This is true if the dot product is positive. If it's negative, they're not.

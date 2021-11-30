@@ -35,12 +35,12 @@ void GameControl::Delete(GO &object, int layer)
     }
     Reinitialize(layer);
 }
-void GameControl::Reinitialize(int layer) {
+void GameControl::Reinitialize(int layer)
+{
     for (int i = 0; i < gameObjects[layer].size(); i++)
     {
         gameObjects[layer].at(i).Init();
     }
-    
 }
 vector<GO> &GameControl::GetLayer(int layer)
 {
@@ -58,15 +58,29 @@ void GameControl::Update()
     // }
     if (g.kbhit())
     {
+        kbhit = true;
+        if(!downed && !down) {
+            down = true;
+        }
+        else {
+            down = false;
+            downed = true;
+        }
         currentKey = g.getKey();
-        if(currentKey == 'Q')
+        if (currentKey == 'Q')
         {
             Quit();
         }
-        else if(currentKey == ' ')
+        else if (currentKey == ' ')
         {
             cout << "Pause!" << endl;
         }
+    }
+    else
+    {
+        kbhit = false;
+        downed = false;
+        currentKey = '\n';
     }
     double deltaTime = (static_cast<double>(getTime() - lastTime)) / 5;
     lastTime = getTime(); // gets the time of the last frame
@@ -100,9 +114,14 @@ bool GameControl::getQuit()
     return quit;
 }
 
-char GameControl::CurrentKey()
+bool GameControl::Key(char k)
 {
-    return currentKey;
+    return currentKey == k && kbhit;
+}
+
+bool GameControl::KeyDown(char k)
+{
+    return currentKey == k && down;
 }
 
 void GameControl::Quit()
