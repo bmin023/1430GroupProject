@@ -37,16 +37,17 @@ int main(int argc, char** argv)
     for (int i = 0; i< obstacleLayer.size(); i++) {
       GO& obstacle = obstacleLayer.at(i);
       if(obstacle.isColliding()) {
-        game.Delete(2,i);
+        game.Delete(obstacle, 2);
       }
       else if(move) {
         obstacle.SetDest(vec2(obstacle.getCenter().x, obstacle.getCenter().y - 50));
       }
     }
     if(move) {
+      // game.Spawn(GO(vec2(280, 700), Shape(rand() % 5+3, 20, Color::HSV(rand() % 361, 50, 100))), 2);
       for (int i = 0; i < rand()%4+1; i++)
       {
-        GO& obj = game.Spawn(GO(vec2(rand()%SCREEN_WIDTH, SCREEN_HEIGHT+50), Shape(rand()%11, rand()%20+30, Color::HSV(rand()%361,100,100))), 2);
+        GO& obj = game.Spawn(GO(vec2(rand()%SCREEN_WIDTH, SCREEN_HEIGHT+50), Shape(rand()%5+3, rand()%20+30, Color::HSV(rand()%361,50,100))), 2);
         obj.SetDest(vec2(obj.getCenter().x, 700));
       }
       move = false;

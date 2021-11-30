@@ -18,6 +18,7 @@ void GameControl::Delete(int layer, int index)
 {
     gameObjects[layer].at(index).erase(g);
     gameObjects[layer].erase(gameObjects[layer].begin() + index);
+    // Reinitialize(layer);
 }
 void GameControl::Delete(GO &object, int layer)
 {
@@ -32,6 +33,14 @@ void GameControl::Delete(GO &object, int layer)
             found = true;
         }
     }
+    Reinitialize(layer);
+}
+void GameControl::Reinitialize(int layer) {
+    for (int i = 0; i < gameObjects[layer].size(); i++)
+    {
+        gameObjects[layer].at(i).Init();
+    }
+    
 }
 vector<GO> &GameControl::GetLayer(int layer)
 {
@@ -50,10 +59,19 @@ void GameControl::Update()
     if (g.kbhit())
     {
         currentKey == g.getKey();
+        cout << currentKey << endl;
+        if(currentKey == 'q')
+        {
+            Quit();
+        }
+        else if(currentKey == ' ')
+        {
+            cout << "Pause!" << endl;
+        }
     }
     double deltaTime = (static_cast<double>(getTime() - lastTime)) / 5;
     lastTime = getTime(); // gets the time of the last frame
-    cout << endl;
+    // cout << endl;
     for (int i = 0; i < LAYERS; i++)
     {
         for (int j = 0; j < gameObjects[i].size(); j++)
