@@ -52,15 +52,14 @@ unsigned int GameControl::getTime()
 }
 void GameControl::Update()
 {
-    if (g.getQuit())
-    {
-        Quit();
-    }
+    // if (g.getQuit())
+    // {
+    //     // Quit();
+    // }
     if (g.kbhit())
     {
-        currentKey == g.getKey();
-        cout << currentKey << endl;
-        if(currentKey == 'q')
+        currentKey = g.getKey();
+        if(currentKey == 'Q')
         {
             Quit();
         }
