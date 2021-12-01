@@ -21,6 +21,9 @@ struct  Color
   * postcondition: Returns
   */
   static Color HSV(int h, int s, int v);
+  bool operator==(const Color& other) const {
+    return R == other.R && G == other.G && B == other.B;
+  }
 };
 
 const Color RED(220, 20, 20);

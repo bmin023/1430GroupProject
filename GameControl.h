@@ -6,10 +6,13 @@
 #include "SDL_Plotter.h"
 #include <chrono>
 #include "Typer.h"
+#include <string>
 
 const int SCREEN_WIDTH = 600;
 const int SCREEN_HEIGHT = 800;
 const int LAYERS = 4;
+
+using namespace std;
 
 //GameControl class - Aaron
 // (Obviously change out my documentation for your own)
@@ -18,6 +21,7 @@ class GameControl
   private:
     SDL_Plotter g;
     vector<GO> gameObjects[LAYERS];
+    vector<TextObject> textObjects[LAYERS];
     unsigned int getTime();
     unsigned int lastTime;
     char currentKey;
@@ -43,6 +47,7 @@ class GameControl
     * postcondition: the game object is now made at the layer requested
     */
     GO& Spawn(GO gameObject, int layer);
+    void Text(string text, vec2 pos, int size, int layer, bool back = false, Color color = Color(255, 255, 255), bool del = false);
     //Remove a game object from the gameObjects vector
     /*
     * description: deletes a game object from game objects vector

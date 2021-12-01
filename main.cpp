@@ -19,6 +19,7 @@ int main(int argc, char **argv)
   while (!game.getQuit())
   {
     game.layerCollide(1, 2);
+    game.Text("Score:"+to_string(count),vec2(100,100),3,3,true);
     if (game.Key(LEFT_ARROW))
     {
       angle += 0.1;

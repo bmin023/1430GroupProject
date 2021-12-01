@@ -27,6 +27,13 @@ GO &GameControl::Spawn(GO gameObject, int layer)
     go.Init();
     return go;
 }
+
+void GameControl::Text(string text, vec2 pos, int size, int layer, bool back, Color color, bool del)
+{
+    TextObject t(text, pos, size, color, back, del);
+    textObjects[layer].push_back(t);
+}
+
 void GameControl::Delete(int layer, int index)
 {
     gameObjects[layer].at(index).erase(g);
@@ -107,8 +114,26 @@ void GameControl::Update()
             gameObjects[i].at(j).setDeltaTime(deltaTime);
             gameObjects[i].at(j).update(g);
         }
+        for (int j = 0; j < textObjects[i].size(); j++) {
+            if((!textObjects[i].at(j).del||textObjects[i].at(j).color==BLANK) && textObjects[i].at(j).vis)
+            {
+                textObjects[i].erase(textObjects[i].begin() + j);
+                j--;
+            }
+        }
+        for (int j = 0; j < textObjects[i].size(); j++)
+        {
+            if(!textObjects[i].at(j).del || !textObjects[i].at(j).vis)
+            {
+                typer.Write(textObjects[i].at(j),g);
+                textObjects[i].at(j).vis = true;
+            }
+            else {
+                textObjects[i].at(j).color = BLANK;
+                typer.Write(textObjects[i].at(j),g);
+            }
+        }
     }
-    typer.Write("Score:1234567890", g, vec2(100, 100), Color(255, 255, 255), 3, false);
     g.update();
 }
 void GameControl::layerCollide(int layer, int otherlayer)

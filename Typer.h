@@ -5,6 +5,20 @@
 
 using namespace std;
 
+struct TextObject
+{
+  string text;
+  vec2 pos;
+  int size;
+  int layer;
+  Color color;
+  bool back;
+  bool del;
+  bool vis;
+  TextObject();
+  TextObject(string text, vec2 pos, int size, Color color, bool back, bool del);
+};
+
 class Typer
 {
 private:
@@ -19,4 +33,5 @@ private:
 public:
   Typer();
   void Write(string word, SDL_Plotter &g, vec2 pos, Color c, int size = 2, bool back = true);
+  void Write(TextObject obj, SDL_Plotter &g);
 };

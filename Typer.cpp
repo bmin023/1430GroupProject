@@ -1,5 +1,16 @@
 #include "Typer.h"
 
+TextObject::TextObject(string text, vec2 pos, int size, Color color, bool back, bool del)
+{
+  this->text = text;
+  this->pos = pos;
+  this->size = size;
+  this->layer = layer;
+  this->color = color;
+  this->back = back;
+  this->del = del;
+}
+
 Typer::Typer()
 {
   ImportLetters();
@@ -142,4 +153,8 @@ void Typer::Write(string word, SDL_Plotter &g, vec2 pos, Color c, int size, bool
       }
     }
   }
+}
+
+void Typer::Write(TextObject text, SDL_Plotter &g) {
+  Write(text.text, g, text.pos, text.color, text.size, text.back);
 }
