@@ -108,7 +108,7 @@ void GameControl::Update()
             gameObjects[i].at(j).update(g);
         }
     }
-    typer.Write("We have spaces now", g, vec2(100, 100), Color(255, 255, 255), 3, false);
+    typer.Write("Score:1234567890", g, vec2(100, 100), Color(255, 255, 255), 3, false);
     g.update();
 }
 void GameControl::layerCollide(int layer, int otherlayer)

@@ -8,9 +8,12 @@ using namespace std;
 class Typer
 {
 private:
-  // 26 5x5 matrices
-  bool letters[26][5][5];
+  //5x5 matrices
+  bool characters[39][5][5];
   void ImportLetters();
+  void ImportNumbers();
+  void ImportSymbols();
+  bool TryLetter(char c, int& loc);
   void DrawBox(SDL_Plotter &g, int x, int y, int size, Color c);
 
 public:
