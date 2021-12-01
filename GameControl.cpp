@@ -7,6 +7,19 @@
 
 #include "GameControl.h"
 
+GameControl::GameControl() : g(SCREEN_HEIGHT, SCREEN_WIDTH)
+{
+    lastTime = getTime();
+    for (int x = 0; x < SCREEN_WIDTH; x++)
+    {
+        for (int y = 0; y < SCREEN_HEIGHT; y++)
+        {
+            g.plotPixel(x, y, BLANK.R, BLANK.G, BLANK.B);
+        }
+    }
+    
+}
+
 GO &GameControl::Spawn(GO gameObject, int layer)
 {
     gameObjects[layer].push_back(gameObject);
@@ -52,17 +65,19 @@ unsigned int GameControl::getTime()
 }
 void GameControl::Update()
 {
-    // if (g.getQuit())
-    // {
-    //     // Quit();
-    // }
+    if (g.getQuit())
+    {
+        // Quit();
+    }
     if (g.kbhit())
     {
         kbhit = true;
-        if(!downed && !down) {
+        if (!downed && !down)
+        {
             down = true;
         }
-        else {
+        else
+        {
             down = false;
             downed = true;
         }
@@ -71,7 +86,7 @@ void GameControl::Update()
         {
             Quit();
         }
-        else if (currentKey == ' ')
+        else if (currentKey == 'P')
         {
             cout << "Pause!" << endl;
         }
@@ -93,6 +108,7 @@ void GameControl::Update()
             gameObjects[i].at(j).update(g);
         }
     }
+    typer.Write("We have spaces now", g, vec2(100, 100), Color(255, 255, 255), 3, false);
     g.update();
 }
 void GameControl::layerCollide(int layer, int otherlayer)

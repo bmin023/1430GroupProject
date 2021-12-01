@@ -5,6 +5,7 @@
 #include <vector>
 #include "SDL_Plotter.h"
 #include <chrono>
+#include "Typer.h"
 
 const int SCREEN_WIDTH = 600;
 const int SCREEN_HEIGHT = 800;
@@ -23,7 +24,7 @@ class GameControl
     bool quit = false;
     bool down,downed = false;
     bool kbhit = false;
-
+    Typer typer;
     void Reinitialize(int layer);
   public:
     /*
@@ -32,7 +33,7 @@ class GameControl
     * precondition: a gamecontrol is made w/out parameters
     * postcondition: the screen is now made
     */
-    GameControl(): g(SCREEN_HEIGHT,SCREEN_WIDTH){lastTime = getTime();};
+    GameControl();
     //Add a game object to the gameObjects vector
     // Return back that game object so that we can mess with it later.
     /*

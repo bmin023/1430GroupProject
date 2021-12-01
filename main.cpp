@@ -16,18 +16,17 @@ int main(int argc, char **argv)
   game.Spawn(GO(TOP_CENTER, Shape(10, 5, RED)), 0);
   game.Spawn(GO(TOP_CENTER, Shape(10, 10, RED)), 0);
   setPointer(game, angle);
-  // box.SetDest(vec2(300,700));
-  while (1)
+  while (!game.getQuit())
   {
     game.layerCollide(1, 2);
     if (game.Key(LEFT_ARROW))
     {
-      angle += 0.05;
+      angle += 0.1;
       setPointer(game, angle);
     }
     else if (game.Key(RIGHT_ARROW))
     {
-      angle -= 0.05;
+      angle -= 0.1;
       setPointer(game, angle);
     }
     else if (game.KeyDown(' ')) {
@@ -77,7 +76,6 @@ int main(int argc, char **argv)
     }
     if (move)
     {
-      // game.Spawn(GO(vec2(280, 700), Shape(rand() % 5+3, 20, Color::HSV(rand() % 361, 50, 100))), 2);
       for (int i = 0; i < rand() % 4 + 1; i++)
       {
         GO &obj = game.Spawn(GO(vec2(rand() % SCREEN_WIDTH, SCREEN_HEIGHT + 50), Shape(rand() % 5 + 3, rand() % 20 + 30, Color::HSV(rand() % 361, 50, 100))), 2);
