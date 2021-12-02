@@ -8,6 +8,9 @@ void setPointer(GameControl &game, double angle);
 
 int main(int argc, char **argv)
 {
+  int ballsDestroyedScore = 0;
+  int ballsUsed = 0;
+  int totalScore = 0;
   int count = 0;
   bool move = false;
   double angle = PI / 2;
@@ -19,7 +22,8 @@ int main(int argc, char **argv)
   while (!game.getQuit())
   {
     game.layerCollide(1, 2);
-    game.Text("Score:"+to_string(count),vec2(100,100),3,3,true);
+    totalScore = (ballsDestroyedScore * 5) + (ballsUsed * -1);
+    game.Text("Score:"+to_string(totalScore),vec2(15,25),3,3,true);
     if (game.Key(LEFT_ARROW))
     {
       angle += 0.1;
@@ -34,6 +38,7 @@ int main(int argc, char **argv)
       Color randColor = Color::HSV(count % 361, 70, 100);
       count += 10;
       GO& ball = game.Spawn(GO(TOP_CENTER, Shape(10, 20, randColor)), 1);
+      ballsUsed++;
       ball.setMoveMethod(MoveMethod::PHYSICS);
       ball.ApplyForce(vec2::Angle(angle)*3);
     }
@@ -69,6 +74,7 @@ int main(int argc, char **argv)
       if (obstacle.isColliding())
       {
         game.Delete(obstacle, 2);
+        ballsDestroyedScore++;
       }
       else if (move)
       {
