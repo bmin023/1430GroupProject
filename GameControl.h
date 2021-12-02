@@ -88,6 +88,9 @@ class GameControl
     bool Key(char);
     bool KeyDown(char);
     void Quit();
+
+    void InitSound(string);
+    void Sound(string);
 };
 
 const vec2 TOP_CENTER = RIGHT * (SCREEN_WIDTH / 2);

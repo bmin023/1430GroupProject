@@ -30,7 +30,7 @@ int main(int argc, char **argv)
       angle -= 0.1;
       setPointer(game, angle);
     }
-    else if (game.KeyDown(' ')) {
+    else if (game.Key(' ')) {
       Color randColor = Color::HSV(count % 361, 70, 100);
       count += 10;
       GO& ball = game.Spawn(GO(TOP_CENTER, Shape(10, 20, randColor)), 1);
@@ -73,6 +73,9 @@ int main(int argc, char **argv)
       else if (move)
       {
         obstacle.SetDest(vec2(obstacle.getCenter().x, obstacle.getCenter().y - 50));
+      }
+      else {
+        game.Text(to_string(i), obstacle.getCenter(), 3, 3, false, RED, true);
       }
     }
     if (move)
