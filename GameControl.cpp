@@ -17,7 +17,6 @@ GameControl::GameControl() : g(SCREEN_HEIGHT, SCREEN_WIDTH)
             g.plotPixel(x, y, BLANK.R, BLANK.G, BLANK.B);
         }
     }
-    
 }
 
 GO &GameControl::Spawn(GO gameObject, int layer)
@@ -74,7 +73,7 @@ void GameControl::Update()
 {
     if (g.getQuit())
     {
-        // Quit();
+        Quit();
     }
     if (g.kbhit())
     {
@@ -114,8 +113,9 @@ void GameControl::Update()
             gameObjects[i].at(j).setDeltaTime(deltaTime);
             gameObjects[i].at(j).update(g);
         }
-        for (int j = 0; j < textObjects[i].size(); j++) {
-            if((!textObjects[i].at(j).del||textObjects[i].at(j).color==BLANK) && textObjects[i].at(j).vis)
+        for (int j = 0; j < textObjects[i].size(); j++)
+        {
+            if ((!textObjects[i].at(j).del || textObjects[i].at(j).color == BLANK) && textObjects[i].at(j).vis)
             {
                 textObjects[i].erase(textObjects[i].begin() + j);
                 j--;
@@ -123,14 +123,15 @@ void GameControl::Update()
         }
         for (int j = 0; j < textObjects[i].size(); j++)
         {
-            if(!textObjects[i].at(j).del || !textObjects[i].at(j).vis)
+            if (!textObjects[i].at(j).del || !textObjects[i].at(j).vis)
             {
-                typer.Write(textObjects[i].at(j),g);
+                typer.Write(textObjects[i].at(j), g);
                 textObjects[i].at(j).vis = true;
             }
-            else {
+            else
+            {
                 textObjects[i].at(j).color = BLANK;
-                typer.Write(textObjects[i].at(j),g);
+                typer.Write(textObjects[i].at(j), g);
             }
         }
     }
@@ -168,4 +169,14 @@ bool GameControl::KeyDown(char k)
 void GameControl::Quit()
 {
     quit = true;
+}
+
+void GameControl::InitSound(string file)
+{
+    g.initSound(file);
+}
+
+void GameControl::Sound(string file)
+{
+    g.playSound(file);
 }

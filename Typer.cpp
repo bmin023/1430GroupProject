@@ -45,7 +45,8 @@ void Typer::ImportLetters()
   file.close();
 }
 
-void Typer::ImportNumbers() {
+void Typer::ImportNumbers()
+{
   ifstream file("num.txt");
   char c;
   for (int i = 0; i < 26; i++)
@@ -57,11 +58,11 @@ void Typer::ImportNumbers() {
         file.get(c);
         if (c == '1')
         {
-          characters[i+26][j][k] = true;
+          characters[i + 26][j][k] = true;
         }
         else
         {
-          characters[i+26][j][k] = false;
+          characters[i + 26][j][k] = false;
         }
       }
       file.ignore();
@@ -71,7 +72,8 @@ void Typer::ImportNumbers() {
   file.close();
 }
 
-void Typer::ImportSymbols() {
+void Typer::ImportSymbols()
+{
   ifstream file("special.txt");
   char c;
   for (int i = 0; i < 26; i++)
@@ -83,11 +85,11 @@ void Typer::ImportSymbols() {
         file.get(c);
         if (c == '1')
         {
-          characters[i+36][j][k] = true;
+          characters[i + 36][j][k] = true;
         }
         else
         {
-          characters[i+36][j][k] = false;
+          characters[i + 36][j][k] = false;
         }
       }
       file.ignore();
@@ -97,17 +99,21 @@ void Typer::ImportSymbols() {
   file.close();
 }
 
-bool Typer::TryLetter(char c, int& index) {
+bool Typer::TryLetter(char c, int &index)
+{
   bool found = false;
-  if(c=='!') {
+  if (c == '!')
+  {
     index = 36;
     found = true;
   }
-  else if(c==':') {
+  else if (c == ':')
+  {
     index = 37;
     found = true;
   }
-  else if(c=='.') {
+  else if (c == '.')
+  {
     index = 38;
     found = true;
   }
@@ -120,7 +126,10 @@ void Typer::DrawBox(SDL_Plotter &g, int x, int y, int size, Color c)
   {
     for (int j = 0; j < size; j++)
     {
-      g.plotPixel(x + i, y + j, c.R, c.G, c.B);
+      if (x+i >= 0 && x+i < g.getCol() && y+j >= 0 && y+j < g.getRow())
+      {
+        g.plotPixel(x + i, y + j, c.R, c.G, c.B);
+      }
     }
   }
 }
@@ -130,12 +139,16 @@ void Typer::Write(string word, SDL_Plotter &g, vec2 pos, Color c, int size, bool
   int character;
   for (int i = 0; i < word.length(); i++)
   {
-    if(isalpha(word[i])) {
+    if (isalpha(word[i]))
+    {
       character = toupper(word[i]) - 'A';
-    } else if(isdigit(word[i])) {
+    }
+    else if (isdigit(word[i]))
+    {
       character = word[i] - '0' + 26;
     }
-    else if(!TryLetter(word[i], character)) {
+    else if (!TryLetter(word[i], character))
+    {
       character = 0;
     }
     for (int j = 0; j < 5; j++)
@@ -144,17 +157,18 @@ void Typer::Write(string word, SDL_Plotter &g, vec2 pos, Color c, int size, bool
       {
         if (characters[character][j][k] && word[i] != ' ')
         {
-          DrawBox(g, pos.x + i*5*size+i*size + k * size, pos.y + j * size, size, c);
+          DrawBox(g, pos.x + i * 5 * size + i * size + k * size, pos.y + j * size, size, c);
         }
         else if (back)
         {
-          DrawBox(g, pos.x + i * 5 * size+i*size + k * size, pos.y + j * size, size, BLANK);
+          DrawBox(g, pos.x + i * 5 * size + i * size + k * size, pos.y + j * size, size, BLANK);
         }
       }
     }
   }
 }
 
-void Typer::Write(TextObject text, SDL_Plotter &g) {
+void Typer::Write(TextObject text, SDL_Plotter &g)
+{
   Write(text.text, g, text.pos, text.color, text.size, text.back);
 }
