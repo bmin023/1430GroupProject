@@ -49,7 +49,7 @@ void Typer::ImportNumbers()
 {
   ifstream file("num.txt");
   char c;
-  for (int i = 0; i < 26; i++)
+  for (int i = 0; i < 10; i++)
   {
     for (int j = 0; j < 5; j++)
     {
@@ -76,7 +76,7 @@ void Typer::ImportSymbols()
 {
   ifstream file("special.txt");
   char c;
-  for (int i = 0; i < 26; i++)
+  for (int i = 0; i < 4; i++)
   {
     for (int j = 0; j < 5; j++)
     {
@@ -115,6 +115,11 @@ bool Typer::TryLetter(char c, int &index)
   else if (c == '.')
   {
     index = 38;
+    found = true;
+  }
+  else if (c == '-')
+  {
+    index = 39;
     found = true;
   }
   return found;

@@ -23,7 +23,7 @@ class Typer
 {
 private:
   //5x5 matrices
-  bool characters[39][5][5];
+  bool characters[40][5][5];
   void ImportLetters();
   void ImportNumbers();
   void ImportSymbols();
