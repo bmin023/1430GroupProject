@@ -46,6 +46,8 @@ public:
   // Getters
   Color getColor();
   double getRadius();
+  int getSides();
+  double getAngle();
 
   // Setters
   void setColor(Color color);

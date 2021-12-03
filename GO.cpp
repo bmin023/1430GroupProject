@@ -118,6 +118,11 @@ void GO::update(SDL_Plotter &g)
             setMoving(false);
         }
     }
+    else if(angle!=shape.getAngle())
+    {
+        erase(g);
+    }
+    shape.setAngle(angle);
     if (visible)
     {
         shape.draw(g,center);
@@ -166,4 +171,14 @@ void GO::Collide(GO& other)
         physics.velocity += impulsePerMass * physics.mass;
     }
     colliding = true;
+}
+
+void GO::Rotate(double a)
+{
+    angle += a * deltaTime;
+}
+
+Shape GO::getShape()
+{
+    return shape;
 }

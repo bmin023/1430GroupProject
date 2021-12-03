@@ -208,6 +208,14 @@ double Shape::getRadius()
 {
   return radius;
 }
+int Shape::getSides()
+{
+  return sides;
+}
+double Shape::getAngle()
+{
+  return angle;
+}
 
 // Setters
 void Shape::setColor(Color color)

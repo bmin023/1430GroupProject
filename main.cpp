@@ -16,6 +16,7 @@ int main(int argc, char **argv)
   GameControl game;
   game.Spawn(GO(TOP_CENTER, Shape(10, 5, RED)), 0);
   game.Spawn(GO(TOP_CENTER, Shape(10, 10, RED)), 0);
+  game.InitSound("Drop.wav");
   setPointer(game, angle);
   enum gameState
   {
@@ -60,7 +61,7 @@ int main(int argc, char **argv)
       {
         Color randColor = Color::HSV(count % 361, 70, 100);
         count += 10;
-        GO &ball = game.Spawn(GO(TOP_CENTER, Shape(10, 20, randColor)), 1);
+        GO &ball = game.Spawn(GO(TOP_CENTER, Shape(10, 15, randColor)), 1);
         ball.setMoveMethod(MoveMethod::PHYSICS);
         ball.ApplyForce(vec2::Angle(angle) * 3);
         score -= 3;
@@ -99,6 +100,7 @@ int main(int argc, char **argv)
         if (obstacle.isColliding())
         {
           game.Delete(obstacle, 2);
+          game.Sound("Drop.wav");
           score += 10;
         }
         else if (move)
@@ -109,29 +111,34 @@ int main(int argc, char **argv)
         {
           state = LOSE;
         }
+        else if(obstacle.getShape().getSides() == 4) {
+          obstacle.Rotate(.01);
+        }
       }
       if (move)
       {
         for (int i = 0; i < rand() % 4 + 1; i++)
         {
-          GO &obj = game.Spawn(GO(vec2(rand() % SCREEN_WIDTH, SCREEN_HEIGHT + 50), Shape(rand() % 5 + 3, rand() % 20 + 30, Color::HSV(rand() % 361, 50, 100))), 2);
+          GO &obj = game.Spawn(GO(vec2(rand() % SCREEN_WIDTH, SCREEN_HEIGHT + 50), Shape(rand() % 5 + 3, rand() % 15 + 15, Color::HSV(rand() % 361, 50, 100))), 2);
           obj.SetDest(vec2(obj.getCenter().x, 700));
         }
         move = false;
       }
-      for (int i = 0; i < obstacleLayer.size(); i++)
-      {
-        game.Delete(obstacleLayer.at(i), 2);
-      }
-      while (state == LOSE && !game.getQuit())
-      {
-        game.Text("Game over", vec2(160, 160), 5, 1, false, NOTWHITE, true);
-        if(game.Key(' ')) {
-          state = TITLE;
-        }
-        game.Update();
-      }
 
+      game.Update();
+    }
+
+    for (int i = 0; i < game.GetLayer(2).size(); i++)
+    {
+      game.Delete(2,i);
+    }
+    while (state == LOSE && !game.getQuit())
+    {
+      game.Text("Game over", vec2(160, 160), 5, 1, false, NOTWHITE, true);
+      if (game.Key(' '))
+      {
+        state = TITLE;
+      }
       game.Update();
     }
   }

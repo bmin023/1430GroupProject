@@ -39,6 +39,7 @@ private:
   bool moving = false;
   bool colliding = false;
   bool visible = true;
+  double angle = 0;
 
   // Quick explanation of deltatime. If you want to move the object
   // by a certain amount every frame, you would multiply the amount by
@@ -247,9 +248,12 @@ public:
 
   void erase(SDL_Plotter& g);
 
+  void Rotate(double angle);
+
   //Use their shapes to check collision and apply force if they are.
   //The GameController will call this function for you if it thinks the two are colliding.
   void CheckCollision(GO& other);
+  Shape getShape();
 
 };
 
