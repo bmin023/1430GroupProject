@@ -28,5 +28,6 @@ struct  Color
 
 const Color RED(220, 20, 20);
 const Color BLANK(51, 61, 64);
+const Color NOTWHITE(255, 255, 255);
 
 #endif // COLOR_H_INCLUDED
