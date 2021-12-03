@@ -8,7 +8,9 @@ void setPointer(GameControl &game, double angle);
 
 int main(int argc, char **argv)
 {
-  //Data Abstraction
+  int ballsDestroyedScore = 0;
+  int ballsUsed = 0;
+  int totalScore = 0;
   int count = 0;
   bool move = false;
   double angle = PI / 2;
