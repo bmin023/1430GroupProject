@@ -91,7 +91,9 @@ void GO::update(SDL_Plotter &g)
     // still draw things that aren't moving
     if (isMoving() || moveMethod == PHYSICS)
     {
-        erase(g);
+        if(visible) {
+            erase(g);
+        }
         // Linear movement
         if (moveMethod == LINEAR)
         {
@@ -118,7 +120,7 @@ void GO::update(SDL_Plotter &g)
             setMoving(false);
         }
     }
-    else if(angle!=shape.getAngle())
+    else if(angle!=shape.getAngle() && visible)
     {
         erase(g);
     }

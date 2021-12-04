@@ -5,12 +5,15 @@
 // Lucy was here
 
 void setPointer(GameControl &game, double angle);
+void RainbowText(GameControl &game, string text, vec2 pos, int size, int time);
 
 int main(int argc, char **argv)
 {
   int score = 0;
+  int prevScore = 0;
   int count = 0;
   bool move = false;
+  double gameTime = 0;
   double angle = PI / 2;
   srand(time(0));
   GameControl game;
@@ -37,6 +40,7 @@ int main(int argc, char **argv)
       game.Text("Space to launch ball", vec2(120, 220), 3, 1, false, NOTWHITE, true);
       game.Text("Hit space to start", vec2(140, 500), 3, 1, false, NOTWHITE, true);
       game.Update();
+      gameTime += game.DeltaTime();
       if (game.Key(' '))
       {
         state = PLAY;
@@ -105,41 +109,60 @@ int main(int argc, char **argv)
         }
         else if (move)
         {
-          obstacle.SetDest(vec2(obstacle.getCenter().x, obstacle.getCenter().y - 50));
+          obstacle.SetDest(vec2(obstacle.getCenter().x, obstacle.getCenter().y - 100 - score/2));
         }
         else if (obstacleLayer.at(i).getCenter().y <= 0)
         {
           state = LOSE;
         }
-        else if(obstacle.getShape().getSides() == 4) {
-          obstacle.Rotate(.01);
+        else if(obstacle.getShape().getSides() == 5) {
+          obstacle.Rotate(.002);
+        }
+        else if (obstacle.getShape().getSides() == 8)
+        {
+          obstacle.Rotate(-.002);
         }
       }
       if (move)
       {
-        for (int i = 0; i < rand() % 4 + 1; i++)
+        for (int i = 0; i < rand() % 7 + 1; i++)
         {
-          GO &obj = game.Spawn(GO(vec2(rand() % SCREEN_WIDTH, SCREEN_HEIGHT + 50), Shape(rand() % 5 + 3, rand() % 15 + 15, Color::HSV(rand() % 361, 50, 100))), 2);
+          GO &obj = game.Spawn(GO(vec2(rand() % SCREEN_WIDTH, SCREEN_HEIGHT + 50), Shape(rand() % 6 + 3, rand() % 25 + 20, Color::HSV(rand() % 361, 50, 100))), 2);
           obj.SetDest(vec2(obj.getCenter().x, 700));
         }
         move = false;
       }
 
       game.Update();
+      gameTime += game.DeltaTime();
     }
-
-    for (int i = 0; i < game.GetLayer(2).size(); i++)
+    int size = game.GetLayer(2).size();
+    for (int i = 0; i < size; i++)
     {
-      game.Delete(2,i);
+      game.Delete(2,0);
     }
+    game.Text("Score:" + to_string(score), vec2(15, 25), 3, 3, true, NOTWHITE, true);
+    GO& mover = game.Spawn(GO(vec2(15,25), Shape(10, 10, RED)), 2);
+    mover.setVisible(false);
+    mover.SetDest(vec2(160, 195));
     while (state == LOSE && !game.getQuit())
     {
-      game.Text("Game over", vec2(160, 160), 5, 1, false, NOTWHITE, true);
+      game.Text("Score:" + to_string(score), mover.getCenter(), 3, 3, false, NOTWHITE, true);
+      if(score>prevScore) {
+        RainbowText(game, "New highscore!", vec2(160, 160), 5, gameTime);
+      }
+      else {
+        game.Text("Game over", vec2(160, 160), 5, 1, false, NOTWHITE, true);
+      }
       if (game.Key(' '))
       {
         state = TITLE;
+        score = 0;
+        game.Delete(mover, 2);
+        prevScore = score;
       }
       game.Update();
+      gameTime += game.DeltaTime();
     }
   }
 
@@ -153,5 +176,14 @@ void setPointer(GameControl &game, double angle)
   for (int i = 0; i < pointerLayer.size(); i++)
   {
     pointerLayer.at(i).SetDest(TOP_CENTER + dir * (i * 50 + 50));
+  }
+}
+
+void RainbowText(GameControl &game, string text, vec2 pos, int size, int time)
+{
+  int length = text.length();
+  for (int i = 0; i < length; i++)
+  {
+    game.Text(text.substr(i, 1), pos + RIGHT * i * size * 6, size, 3, false, Color::HSV((time+i*5)%360, 100, 100), true);
   }
 }

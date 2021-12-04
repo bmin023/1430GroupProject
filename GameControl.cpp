@@ -103,7 +103,7 @@ void GameControl::Update()
         downed = false;
         currentKey = '\n';
     }
-    double deltaTime = (static_cast<double>(getTime() - lastTime)) / 5;
+    deltaTime = (static_cast<double>(getTime() - lastTime)) / 5;
     lastTime = getTime(); // gets the time of the last frame
     // cout << endl;
     for (int i = 0; i < LAYERS; i++)
@@ -179,4 +179,9 @@ void GameControl::InitSound(string file)
 void GameControl::Sound(string file)
 {
     g.playSound(file);
+}
+
+double GameControl::DeltaTime()
+{
+    return deltaTime;
 }

@@ -29,6 +29,7 @@ class GameControl
     bool down,downed = false;
     bool kbhit = false;
     Typer typer;
+    double deltaTime;
     void Reinitialize(int layer);
   public:
     /*
@@ -65,6 +66,8 @@ class GameControl
     * postcondition: the layer at int is returned
     */
     vector<GO>& GetLayer(int layer);
+
+    double DeltaTime();
     //Where all the magic happens, update all the game objects
     // and update the screen.
     // Eventually this will also handle collisions.
