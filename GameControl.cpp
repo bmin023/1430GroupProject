@@ -88,11 +88,7 @@ void GameControl::Update()
             downed = true;
         }
         currentKey = g.getKey();
-        if (currentKey == 'Q')
-        {
-            Quit();
-        }
-        else if (currentKey == 'P')
+        if (currentKey == 'P')
         {
             cout << "Pause!" << endl;
         }

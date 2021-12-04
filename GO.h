@@ -36,6 +36,7 @@ private:
   Physics physics;
   Shape shape;
   MoveMethod moveMethod;
+  double scaleChange = 1.0;
   bool moving = false;
   bool colliding = false;
   bool visible = true;
@@ -271,6 +272,24 @@ public:
 
 
   //************************************************************
+  // description: Grows the object by the given amount         *
+  // return: void                                              *
+  // precondition: game object has been constructed            *
+  // postcondition: object is grown by the given amount        *
+  //                                                           *
+  //************************************************************
+  void Scale(double factor);
+
+  //************************************************************
+  // description: Sets the shape to the given color            *
+  // return: void                                              *
+  // precondition: game object has been constructed            *
+  // postcondition: object's shape is set to the given color   *
+  //                                                           *
+  //************************************************************
+  void SetColor(Color c);
+
+  //************************************************************
   // description: rotates the object                           *
   // return: void                                              *
   // precondition: game object has been constructed            *
@@ -304,4 +323,5 @@ public:
 };
 
 const Physics DEFAULT_PHYSICS = Physics(ZERO, 2.5, 1, true);
+const Physics NOCOLLIDE = Physics(ZERO, 0, 0, false);
 #endif // GO_H_INCLUDED

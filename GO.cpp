@@ -120,11 +120,15 @@ void GO::update(SDL_Plotter &g)
             setMoving(false);
         }
     }
-    else if(angle!=shape.getAngle() && visible)
+    if((angle!=shape.getAngle() || scaleChange!=0) && visible)
     {
-        erase(g);
+        if(!moving) {
+            erase(g);
+        }
+        shape.setAngle(angle);
+        shape.setRadius(shape.getRadius()+scaleChange*deltaTime);
     }
-    shape.setAngle(angle);
+    scaleChange = 0;
     if (visible)
     {
         shape.draw(g,center);
@@ -178,6 +182,16 @@ void GO::Collide(GO& other)
 void GO::Rotate(double a)
 {
     angle += a * deltaTime;
+}
+
+void GO::Scale(double factor)
+{
+    scaleChange += factor;
+}
+
+void GO::SetColor(Color color)
+{
+    shape.setColor(color);
 }
 
 Shape GO::getShape()

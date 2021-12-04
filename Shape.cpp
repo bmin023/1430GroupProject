@@ -57,8 +57,9 @@ void Shape::draw(SDL_Plotter &g, vec2 pos) const
   }
   else
   {
+    int x = -radius;
     // Using relativeVertices, create a filled in polygon
-    for (int x = -radius; x <= radius; x++)
+    while(x <= radius)
     {
       count = 0;
       // Find vertices that cross this x coordinate
@@ -91,6 +92,7 @@ void Shape::draw(SDL_Plotter &g, vec2 pos) const
           VerticalLine(g, x+pos.x, e1.Evaluate(x)+pos.y, e2.Evaluate(x)+pos.y);
         }
       }
+      x++;
     }
   }
 }
