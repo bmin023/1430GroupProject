@@ -48,7 +48,7 @@ class GameControl
     * postcondition: the game object is now made at the layer requested
     */
     GO& Spawn(GO gameObject, int layer);
-    void Text(string text, vec2 pos, int size, int layer, bool back = false, Color color = Color(255, 255, 255), bool del = false);
+    void Text(string text, vec2 pos, int size, int layer, bool back = false, Color color = NOTWHITE, bool del = false);
     //Remove a game object from the gameObjects vector
     /*
     * description: deletes a game object from game objects vector

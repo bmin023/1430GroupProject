@@ -36,6 +36,10 @@ SDL_Plotter::SDL_Plotter(int r, int c, bool WITH_SOUND){
 	col = c;
 	leftMouseButtonDown = false;
 	quit = false;
+	kbHit = false;
+	mouseDown = false;
+	mouseUp = false;
+	mouseMotion = false;
 	SOUND = WITH_SOUND;
 
 	SDL_Init(SDL_INIT_AUDIO);
@@ -75,6 +79,32 @@ void SDL_Plotter::update(){
     SDL_RenderClear(renderer);
     SDL_RenderCopy(renderer, texture, NULL, NULL);
     SDL_RenderPresent(renderer);
+		while (SDL_PollEvent(&event))
+		{
+			if (event.type == SDL_KEYDOWN)
+			{
+				kbHit = true;
+			}
+			else if (event.type == SDL_KEYUP) {
+				kbHit = false;
+			}
+			else if (event.type == SDL_QUIT)
+			{
+				quit = true;
+			}
+			else if (event.type == SDL_MOUSEBUTTONUP)
+			{
+				mouseUp = true;
+			}
+			else if (event.type == SDL_MOUSEBUTTONDOWN)
+			{
+				mouseDown = true;
+			}
+			else if (event.type == SDL_MOUSEMOTION)
+			{
+				mouseMotion = true;
+			}
+		}
 }
 
 bool SDL_Plotter::getQuit(){
@@ -82,26 +112,7 @@ bool SDL_Plotter::getQuit(){
 }
 
 bool SDL_Plotter::kbhit(){
-	bool flag = false;
-	if(SDL_PollEvent(&event)){
-		if(event.type == SDL_KEYDOWN){
-			flag = true;
-		}
-		else if( event.type == SDL_QUIT )
-		{
-			quit = true;
-		}
-		else if(event.type == SDL_MOUSEBUTTONUP){
-			SDL_PushEvent(&event);
-		}
-		else if(event.type == SDL_MOUSEBUTTONDOWN){
-			SDL_PushEvent(&event);
-		}
-		else if(event.type == SDL_MOUSEMOTION){
-			SDL_PushEvent(&event);
-		}
-	}
-	return flag;
+	return kbHit;
 }
 
 char SDL_Plotter::getKey(){
@@ -208,63 +219,43 @@ void SDL_Plotter::Sleep(int ms){
 bool SDL_Plotter::getMouseClick(int& x, int& y){
 		bool flag = false;
 		x = y = 0;
-		if(SDL_PollEvent(&event)){
-			if(event.type == SDL_MOUSEBUTTONUP ){
+			if(mouseUp){
 				//Get mouse position
 				flag = true;
 				SDL_GetMouseState( &x, &y );
 			}
-			else{
-				SDL_PushEvent(&event);
-			}
-		}
 		return flag;
 }
 
 bool SDL_Plotter::getMouseDown(int& x, int& y){
 		bool flag = false;
 		x = y = 0;
-		if(SDL_PollEvent(&event)){
-			if(event.type == SDL_MOUSEBUTTONDOWN){
+			if(mouseDown){
 				//Get mouse position
 				flag = true;
 				SDL_GetMouseState( &x, &y );
 			}
-			else{
-				SDL_PushEvent(&event);
-			}
-		}
 		return flag;
 }
 
 bool SDL_Plotter::getMouseUp(int& x, int& y){
 		bool flag = false;
 		x = y = 0;
-		if(SDL_PollEvent(&event)){
-			if(event.type == SDL_MOUSEBUTTONUP){
+			if(mouseUp){
 				//Get mouse position
 				flag = true;
 				SDL_GetMouseState( &x, &y );
 			}
-			else{
-				SDL_PushEvent(&event);
-			}
-		}
 		return flag;
 }
 
 bool SDL_Plotter::getMouseMotion(int& x, int& y){
 		bool flag = false;
 		x = y = 0;
-		if(SDL_PollEvent(&event)){
-			if(event.type == SDL_MOUSEMOTION){
-				//Get mouse position
-				flag = true;
-				SDL_GetMouseState( &x, &y );
-			}
-			else{
-				SDL_PushEvent(&event);
-			}
+		if(mouseMotion){
+			//Get mouse position
+			flag = true;
+			SDL_GetMouseState( &x, &y );
 		}
 		return flag;
 }

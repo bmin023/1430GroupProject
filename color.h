@@ -26,8 +26,8 @@ struct  Color
   }
 };
 
-const Color RED(220, 20, 20);
-const Color BLANK(51, 61, 64);
-const Color NOTWHITE(255, 255, 255);
+const Color RED(204, 41, 54);
+const Color BLANK(47, 53, 58);
+const Color NOTWHITE(239, 231, 235);
 
 #endif // COLOR_H_INCLUDED

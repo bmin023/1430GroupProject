@@ -54,12 +54,12 @@ int main(int argc, char **argv)
       game.Text("Score:" + to_string(score) + " ", vec2(15, 25), 3, 3, true);
       if (game.Key(LEFT_ARROW))
       {
-        angle += 0.1;
+        angle += 0.01;
         setPointer(game, angle);
       }
       else if (game.Key(RIGHT_ARROW))
       {
-        angle -= 0.1;
+        angle -= 0.01;
         setPointer(game, angle);
       }
       else if (game.KeyDown(' '))
@@ -156,7 +156,7 @@ int main(int argc, char **argv)
         game.Text("Game over", vec2(160, 160), 5, 1, false, NOTWHITE, true);
       }
       game.Text("Hit space to restart", vec2(140, 500), 3, 1, false, NOTWHITE, true);
-      if (game.Key(' '))
+      if (game.KeyDown(' '))
       {
         state = TITLE;
         score = 0;

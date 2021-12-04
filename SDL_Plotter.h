@@ -68,6 +68,10 @@ private:
     bool quit;
     SDL_Event event;
 
+    bool kbHit;
+    bool mouseDown, mouseUp, mouseMotion;
+
+
     //Sound Stuff
     bool SOUND;
     int soundCount;
