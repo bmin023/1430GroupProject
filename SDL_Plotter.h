@@ -5,6 +5,8 @@
  *  Dr. Booth
  */
 
+//(Updated to fix the input lag. Yay)
+
 #ifndef SDL_PLOTTER_H_INCLUDED
 #define SDL_PLOTTER_H_INCLUDED
 

@@ -5,6 +5,8 @@
  *  Dr. Booth
  */
 
+//(Updated to fix the input lag. Yay)
+
 #include "SDL_Plotter.h"
 
 //Threaded Function

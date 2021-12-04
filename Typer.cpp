@@ -76,7 +76,7 @@ void Typer::ImportSymbols()
 {
   ifstream file("special.txt");
   char c;
-  for (int i = 0; i < 4; i++)
+  for (int i = 0; i < 5; i++)
   {
     for (int j = 0; j < 5; j++)
     {
@@ -120,6 +120,11 @@ bool Typer::TryLetter(char c, int &index)
   else if (c == '-')
   {
     index = 39;
+    found = true;
+  }
+  else if (c == '+')
+  {
+    index = 40;
     found = true;
   }
   return found;

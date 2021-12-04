@@ -45,13 +45,19 @@ private:
   // by a certain amount every frame, you would multiply the amount by
   // deltatime for proper physics. It's the time component in 
   // position = position + velocity*time 
-  double deltaTime = 0;
+  double deltaTime = 1;
 
   // Move should be called in update.
   // Depending on the moveMethod, move the object's center.
   //If it is ease or linear, check the destination and move towards it.
   //If it is physics, move the object's center according to its velocity.
   //All movements should take into account deltaTime.
+  //***********************************************************************
+  // description: actually calculates the velocity based on collision     *
+  // return: void                                                         *
+  // precondition: object is colliding                                    *
+  // postcondition: object's velocity is updated                          *
+  //***********************************************************************
   void Collide(GO &other);
 
 public:
@@ -65,7 +71,14 @@ public:
   //                                                           *
   //************************************************************
   GO(vec2 center, Shape shape);
-  //Setters
+  
+  //************************************************************
+  // description: Sets the points for shape                    *
+  // return: void                                              *
+  // precondition: none                                        *
+  // postcondition: Pointer is now set                         *
+  //                                                           *
+  //************************************************************
   void Init();
   //Set DeltaTime should be called before every update by the gamecontroller.
   //That way physics are nice and consistent.
@@ -235,7 +248,7 @@ public:
   // description: move the object(if moving and visible) and   *
   //              draw to screen                               *
   // return: void                                              *
-  // precondition: FIXME I'M NOT SURE               *
+  // precondition: Game Object is properly initialized         *
   // postcondition: the object is moved according to its move  *
   //                method if isMoving is true                 *
   //                the object is drawn to the screen if       *
@@ -246,13 +259,46 @@ public:
   //************************************************************
   void update(SDL_Plotter& g);
 
+
+  //************************************************************
+  // description: erases the object from the screen            *
+  // return: void                                              *
+  // precondition: game object has been constructed            *
+  // postcondition: object is erased from the screen           *
+  //                                                           *
+  //************************************************************
   void erase(SDL_Plotter& g);
 
+
+  //************************************************************
+  // description: rotates the object                           *
+  // return: void                                              *
+  // precondition: game object has been constructed            *
+  // postcondition: object is rotated                          *
+  //                                                           *
+  //************************************************************
   void Rotate(double angle);
 
   //Use their shapes to check collision and apply force if they are.
   //The GameController will call this function for you if it thinks the two are colliding.
+  //************************************************************
+  // description: check for collision and apply force if they  *
+  //              are colliding                               *
+  // return: void                                              *
+  // precondition: game object has been constructed            *
+  // postcondition: if the two objects are colliding, the     *
+  //                force is applied to the object             *
+  //                                                           *
+  //************************************************************
   void CheckCollision(GO& other);
+
+  //************************************************************
+  // description: gets the shape of the object                 *
+  // return: Shape                                             *
+  // precondition: game object has been constructed            *
+  // postcondition: shape is returned                          *
+  //                                                           *
+  //************************************************************
   Shape getShape();
 
 };

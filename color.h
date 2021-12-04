@@ -6,9 +6,21 @@
 struct  Color 
 {
   int R, G, B;
+  /*
+  * description: Default constructor
+  * return: None
+  * precondition: User wants to create a color
+  * postcondition: A color is created
+  */
   Color() {
     R = B = G = 0;
   }
+  /*
+  * description: Constructor
+  * return: None
+  * precondition: User wants to create a color with RGB values
+  * postcondition: A color is created
+  */
   Color(int r, int g, int b) {
     R = r;
     B = b;
@@ -21,6 +33,19 @@ struct  Color
   * postcondition: Returns
   */
   static Color HSV(int h, int s, int v);
+  /*
+  * description: Lerps between two colors
+  * return: Color
+  * precondition: None
+  * postcondition: Returns a color lerped between two colors
+  */
+  static Color Lerp(Color a, Color b, float t, bool clamp = true);
+  /*
+  * description: Checks if two colors are equal
+  * return: bool
+  * precondition: None
+  * postcondition: Returns true if colors are equal
+  */
   bool operator==(const Color& other) const {
     return R == other.R && G == other.G && B == other.B;
   }

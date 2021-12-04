@@ -22,7 +22,6 @@ class GameControl
     SDL_Plotter g;
     vector<GO> gameObjects[LAYERS];
     vector<TextObject> textObjects[LAYERS];
-    unsigned int getTime();
     unsigned int lastTime;
     char currentKey;
     bool quit = false;
@@ -30,6 +29,19 @@ class GameControl
     bool kbhit = false;
     Typer typer;
     double deltaTime;
+    /*
+    * description: Gets the current time in milliseconds
+    * return: unsigned int
+    * precondition: none
+    * postcondition: The current time in milliseconds is returned
+    */
+    unsigned int getTime();
+    /*
+    * description: Reinitializes each game object in a layer
+    * return: void
+    * precondition: That I didn't think far enough ahead to see this problem
+    * postcondition: Each game object in a layer is reinitialized
+    */
     void Reinitialize(int layer);
   public:
     /*
@@ -48,6 +60,12 @@ class GameControl
     * postcondition: the game object is now made at the layer requested
     */
     GO& Spawn(GO gameObject, int layer);
+    /*
+    * description: Creates a text object
+    * return: void
+    * precondition: there is a text object and a layer
+    * postcondition: the text object is now made at the layer requested
+    */
     void Text(string text, vec2 pos, int size, int layer, bool back = false, Color color = NOTWHITE, bool del = false);
     //Remove a game object from the gameObjects vector
     /*
@@ -57,6 +75,12 @@ class GameControl
     * postcondition: the object is now not alive
     */
     void Delete(int layer, int index);
+    /*
+    * description: deletes a text object from game objects vector
+    * return: void
+    * precondition: there is an object to kill
+    * postcondition: the object is now not alive
+    */
     void Delete(GO &, int);
     // Return a layer of game objects
     /*
@@ -67,11 +91,16 @@ class GameControl
     */
     vector<GO>& GetLayer(int layer);
 
+    /*
+    * description: Gets the delta time
+    * return: double
+    * precondition: there is a delta time
+    * postcondition: the delta time is returned
+    */
     double DeltaTime();
+
     //Where all the magic happens, update all the game objects
     // and update the screen.
-    // Eventually this will also handle collisions.
-    // But for now, it just updates the screen.
     /*
     * description: updates the screen and handles the collisions
     * return: void
@@ -87,12 +116,49 @@ class GameControl
     */
     void layerCollide(int layer, int otherlayer);
 
+    /*
+    * description: Gets the quit bool
+    * return: bool
+    * precondition: there is a quit bool
+    * postcondition: the quit bool is returned
+    */
     bool getQuit();
+    /*
+    * description: Returns if a key is pressed
+    * return: bool
+    * precondition: none
+    * postcondition: whether or not a key is pressed is returned
+    */
     bool Key(char);
+    /*
+    * description: Returns if this is the first frame a key is pressed
+    * return: bool
+    * precondition: none
+    * postcondition: whether or not a key is pressed is returned
+    */
     bool KeyDown(char);
+    /*
+    * description: Quits the game
+    * return: void
+    * precondition: none
+    * postcondition: the game is now quit
+    */
     void Quit();
 
+    /*
+    * description: Inits a sound
+    * return: void
+    * precondition: the given sound file exists
+    * postcondition: the sound is now inited
+    */
     void InitSound(string);
+
+    /*
+    * description: Plays a sound
+    * return: void
+    * precondition: the given sound file exists and is inited
+    * postcondition: the sound is now played
+    */
     void Sound(string);
 };
 

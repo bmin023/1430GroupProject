@@ -2,9 +2,14 @@
 
 Color Color::HSV(int H, int S, int V)
 {
+  //HSV! Hue Saturation Value. Great for multicolor stuff.
+  //Found this formula on the internet.
+
   float s = S / 100.0;
   float v = V / 100.0;
   float C = s * v;
+  //Had so much trouble with this line before I found out
+  //fabs and fmod are abs and mod for floats.
   float X = C * (1 - fabs(fmod(H/60.0,2) - 1));
   float m = v - C;
   float r, g, b;
@@ -35,6 +40,23 @@ Color Color::HSV(int H, int S, int V)
   int R = (r + m) * 255;
   int G = (g + m) * 255;
   int B = (b + m) * 255;
+
+  return Color(R, G, B);
+}
+
+//Lerping is so fun. Animations are fun.
+Color Color::Lerp(Color a, Color b, float t,bool clamp)
+{
+  if(clamp&&t>1)t=1;
+  if(clamp&&t<0)t=0;
+
+  int R = a.R + (b.R - a.R) * t;
+  int G = a.G + (b.G - a.G) * t;
+  int B = a.B + (b.B - a.B) * t;
+
+  if(R > 255) R = 255;
+  if(G > 255) G = 255;
+  if(B > 255) B = 255;
 
   return Color(R, G, B);
 }
