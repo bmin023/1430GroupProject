@@ -39,12 +39,13 @@ int main(int argc, char **argv)
       game.Text("Arrow keys to aim", vec2(140, 260), 3, 1, false, NOTWHITE, true);
       game.Text("Space to launch ball", vec2(120, 220), 3, 1, false, NOTWHITE, true);
       game.Text("Hit space to start", vec2(140, 500), 3, 1, false, NOTWHITE, true);
-      game.Update();
-      gameTime += game.DeltaTime();
       if (game.Key(' '))
       {
         state = PLAY;
       }
+      move = true;
+      game.Update();
+      gameTime += game.DeltaTime();
     }
 
     while (state == PLAY && !game.getQuit())
@@ -144,16 +145,17 @@ int main(int argc, char **argv)
     game.Text("Score:" + to_string(score), vec2(15, 25), 3, 3, true, NOTWHITE, true);
     GO& mover = game.Spawn(GO(vec2(15,25), Shape(10, 10, RED)), 2);
     mover.setVisible(false);
-    mover.SetDest(vec2(160, 195));
+    mover.SetDest(vec2(100, 200));
     while (state == LOSE && !game.getQuit())
     {
       game.Text("Score:" + to_string(score), mover.getCenter(), 3, 3, false, NOTWHITE, true);
       if(score>prevScore) {
-        RainbowText(game, "New highscore!", vec2(160, 160), 5, gameTime);
+        RainbowText(game, "New highscore!", vec2(100, 160), 5, gameTime);
       }
       else {
         game.Text("Game over", vec2(160, 160), 5, 1, false, NOTWHITE, true);
       }
+      game.Text("Hit space to restart", vec2(140, 500), 3, 1, false, NOTWHITE, true);
       if (game.Key(' '))
       {
         state = TITLE;
