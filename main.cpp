@@ -58,6 +58,7 @@ int main(int argc, char **argv)
   // Initialize the game
   GameControl game;
   game.InitSound("Drop.wav");
+  game.InitSound("GoodDesign.wav");
 
   // Initialize the pointer
   game.Spawn(GO(TOP_CENTER, Shape(10, 5, RED)), 3);
@@ -100,7 +101,7 @@ int main(int argc, char **argv)
       // Left and Right arrow move the pointer.
       if (game.Key(LEFT_ARROW))
       {
-        angle += 0.01;
+        angle += 0.1;
         setPointer(game, angle);
         // Clamp the angle
         if (angle > PI)
@@ -110,7 +111,7 @@ int main(int argc, char **argv)
       }
       else if (game.Key(RIGHT_ARROW))
       {
-        angle -= 0.01;
+        angle -= 0.1;
         setPointer(game, angle);
         // Clamp the angle
         if (angle < 0)
@@ -285,6 +286,7 @@ int main(int argc, char **argv)
     if (score > prevScore)
     {
       mover.SetDest(vec2(100, 200));
+      game.Sound("GoodDesign.wav");
     }
     else
     {
