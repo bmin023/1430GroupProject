@@ -1,3 +1,15 @@
+/* Author: Brendon Kofink
+ *         Johann Rajadurai
+ *         Aaron Sierra
+ *         David Day
+ *         Lucy Ray
+ * Assignment Title: Ball Game
+ * Assignment Description: user can launch balls to hit objects.
+ * Due Date: 12/08/2021
+ * Date Created: 10/19/2021
+ * Date Last Modified: 12/04/2021
+ */
+
 #ifndef COLOR_H_INCLUDED
 #define COLOR_H_INCLUDED
 

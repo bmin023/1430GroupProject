@@ -1,9 +1,14 @@
-// Author: Aaron Sierra
-// Assignement Title: group project
-// Assignment Description: Create a game
-// Due Date: To be determined
-// Date Created: 11/05/21
-// Date Last Modified: 11/05/21
+/* Author: Brendon Kofink
+ *         Johann Rajadurai
+ *         Aaron Sierra
+ *         David Day
+ *         Lucy Ray
+ * Assignment Title: Ball Game
+ * Assignment Description: user can launch balls to hit objects.
+ * Due Date: 12/08/2021
+ * Date Created: 11/05/2021
+ * Date Last Modified: 12/04/2021
+ */
 
 #include "GameControl.h"
 

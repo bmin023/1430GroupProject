@@ -1,3 +1,15 @@
+/* Author: Brendon Kofink
+ *         Johann Rajadurai
+ *         Aaron Sierra
+ *         David Day
+ *         Lucy Ray
+ * Assignment Title: Ball Game
+ * Assignment Description: user can launch balls to hit objects.
+ * Due Date: 12/08/2021
+ * Date Created: 11/08/2021
+ * Date Last Modified: 12/04/2021
+ */
+
 #include "Shape.h"
 #include "vec2.h"
 
@@ -9,6 +21,7 @@ Shape::Shape(int sides, double radius, Color color)
   this->angle = 0;
   generateVertices();
 }
+
 Shape::Shape()
 {
   this->sides = 10;
@@ -32,8 +45,7 @@ void Shape::VerticalLine(SDL_Plotter &g, int x, int y1, int y2) const
   }
 }
 
-// Almost all of these will differ based on the shape type.
-// So each will have some sort of if statement.
+// Differs based on shape type, so each will have an if statement.
 void Shape::draw(SDL_Plotter &g, vec2 pos) const
 {
   int count = 0;
@@ -100,6 +112,7 @@ void Shape::draw(SDL_Plotter &g) const
 {
   draw(g, *center);
 }
+
 // isColliding will be called by the GO.
 bool Shape::isColliding(const Shape &other) const
 {
@@ -157,12 +170,6 @@ vec2 Shape::getCollisionAxis(const Shape &other) const
   return axis;
 }
 
-// Get Projection is where magic happens. Given an axis,
-//  it will return itself squished onto that axis as a minimum
-//  and a maximum.
-//  That's just the dot product of each corner for squares,
-//  and the dot product of the center + or - the radius for circles.
-//  Assume the shape is a circle if sides >= 10.
 void Shape::getProjection(vec2 axis, double &min, double &max) const
 {
   // If the shape is a circle, just use the center and radius.

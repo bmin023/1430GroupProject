@@ -1,3 +1,15 @@
+/* Author: Brendon Kofink
+ *         Johann Rajadurai
+ *         Aaron Sierra
+ *         David Day
+ *         Lucy Ray
+ * Assignment Title: Ball Game
+ * Assignment Description: user can launch balls to hit objects.
+ * Due Date: 12/08/2021
+ * Date Created: 11/02/2021
+ * Date Last Modified: 12/03/2021
+ */
+
 #ifndef SHAPE_H_INCLUDED
 #define SHAPE_H_INCLUDED
 
@@ -6,20 +18,17 @@
 #include "SDL_Plotter.h"
 #include <vector>
 
-// Shape Class - David
-//  (Obviously change out my documentation for your own once you've implemented)
 const double PI = 3.1415926535;
 
 class Shape
 {
 private:
-  // how many sides the polygon has. If above 10, assume a circle
-  int sides;
+  int sides; // how many sides the polygon has. If >10, assume a circle
   vec2 *center;
   Color color = RED;
   double radius;
   double angle;
-  // Only generate when you have to. Only when sides or radius are changes.
+  // Only generate when you have to(when sides or radius are changed).
   vector<vec2> relativeVertices;
   /*
   * description: Draws a vertical line to the screen
@@ -44,8 +53,6 @@ public:
   * postcondition: A Shape is created
   */
   Shape();
-  // Almost all of these will differ based on the shape type.
-  // So each will have some sort of if statement.
   /*
   * description: Draws the shape to the screen
   * return: void
@@ -60,8 +67,6 @@ public:
   * postcondition: The shape is drawn to the screen
   */
   void draw(SDL_Plotter &g) const;
-
-  // isColliding will be called by the GO.
   /*
   * description: Checks if the shape is colliding with another shape
   * return: bool
@@ -76,11 +81,10 @@ public:
   * postcondition: Returns the axis of collision
   */
   vec2 getCollisionAxis(const Shape &other) const;
-  // Get Projection is where magic happens. Given an axis,
-  //  it will return itself squished onto that axis as a minimum
-  //  and a maximum.
-  //  That's just the dot product of each corner for squares,
-  //  and the dot product of the center + or - the radius for circles.
+  
+  // Given an axis, return the dot product of each corner for squares,
+  // and the dot product of the center + or - the radius for circles.
+  
   /*
   * description: Gets the projection of this shape onto an axis
   * return: void

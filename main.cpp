@@ -1,8 +1,18 @@
+/* Author: Brendon Kofink
+ *         Johann Rajadurai
+ *         Aaron Sierra
+ *         David Day
+ *         Lucy Ray
+ * Assignment Title: Ball Game
+ * Assignment Description: user can launch balls to hit objects.
+ * Due Date: 12/08/2021
+ * Date Created: 10/19/2021
+ * Date Last Modified: 12/08/2021
+ */
+
 #include <iostream>
 
 #include "GameControl.h"
-
-// Lucy and Johann was here
 
 /*
  * description: Sets the dots to point through an angle.
@@ -70,7 +80,7 @@ int main(int argc, char **argv)
       game.Text("Hit space to start", vec2(140, 500), 3, 1, false, NOTWHITE, true);
       if (game.KeyDown(' '))
       {
-        state = PLAY;
+        state = PLAY;  //if space is hit, game is in PLAY state
       }
       move = true;
       game.Update();

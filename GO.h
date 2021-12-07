@@ -1,3 +1,15 @@
+/* Author: Brendon Kofink
+ *         Johann Rajadurai
+ *         Aaron Sierra
+ *         David Day
+ *         Lucy Ray
+ * Assignment Title: Ball Game
+ * Assignment Description: user can launch balls to hit objects.
+ * Due Date: 12/08/2021
+ * Date Created: 11/02/2021
+ * Date Last Modified: 12/04/2021
+ */
+
 #ifndef GO_H_INCLUDED
 #define GO_H_INCLUDED
 
@@ -27,7 +39,6 @@ enum MoveMethod
   EASE
 };
 
-// GameObject class- Lucy
 class GO
 {
 private:
@@ -42,17 +53,11 @@ private:
   bool visible = true;
   double angle = 0;
 
-  // Quick explanation of deltatime. If you want to move the object
-  // by a certain amount every frame, you would multiply the amount by
-  // deltatime for proper physics. It's the time component in 
+  // To move the object by a certain amount every frame, multiply the
+  // amount by deltatime for proper physics. Time component in
   // position = position + velocity*time 
   double deltaTime = 1;
 
-  // Move should be called in update.
-  // Depending on the moveMethod, move the object's center.
-  //If it is ease or linear, check the destination and move towards it.
-  //If it is physics, move the object's center according to its velocity.
-  //All movements should take into account deltaTime.
   //***********************************************************************
   // description: actually calculates the velocity based on collision     *
   // return: void                                                         *
@@ -68,7 +73,7 @@ public:
   // return: none                                              *
   // precondition: none                                        *
   // postcondition: game object constructed with vec2 center   *
-  //                and Shape shape
+  //                and Shape shape                            *
   //                                                           *
   //************************************************************
   GO(vec2 center, Shape shape);
@@ -81,8 +86,6 @@ public:
   //                                                           *
   //************************************************************
   void Init();
-  //Set DeltaTime should be called before every update by the gamecontroller.
-  //That way physics are nice and consistent.
   
   //Setter Functions
   //************************************************************
@@ -215,7 +218,6 @@ public:
   //************************************************************
   bool isVisible();
 
-  //Translate the object's center by the given amount.
   //************************************************************
   // description: translate center of object                   *
   // return: void                                              *
@@ -243,8 +245,6 @@ public:
   //************************************************************
   void ApplyForce(vec2 force);
 
-  //Update should be called every frame.
-  //It should move the object and draw to screen. (Only if visible)
   //************************************************************
   // description: move the object(if moving and visible) and   *
   //              draw to screen                               *
@@ -260,7 +260,6 @@ public:
   //************************************************************
   void update(SDL_Plotter& g);
 
-
   //************************************************************
   // description: erases the object from the screen            *
   // return: void                                              *
@@ -269,7 +268,6 @@ public:
   //                                                           *
   //************************************************************
   void erase(SDL_Plotter& g);
-
 
   //************************************************************
   // description: Grows the object by the given amount         *
@@ -298,14 +296,12 @@ public:
   //************************************************************
   void Rotate(double angle);
 
-  //Use their shapes to check collision and apply force if they are.
-  //The GameController will call this function for you if it thinks the two are colliding.
   //************************************************************
-  // description: check for collision and apply force if they  *
-  //              are colliding                               *
+  // description: check for collision and apply force if       *
+  //              objects are colliding                        *
   // return: void                                              *
   // precondition: game object has been constructed            *
-  // postcondition: if the two objects are colliding, the     *
+  // postcondition: if the two objects are colliding, the      *
   //                force is applied to the object             *
   //                                                           *
   //************************************************************

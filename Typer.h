@@ -1,3 +1,15 @@
+/* Author: Brendon Kofink
+ *         Johann Rajadurai
+ *         Aaron Sierra
+ *         David Day
+ *         Lucy Ray
+ * Assignment Title: Ball Game
+ * Assignment Description: user can launch balls to hit objects.
+ * Due Date: 12/08/2021
+ * Date Created: 11/30/2021
+ * Date Last Modified: 12/03/2021
+ */
+
 #include <fstream>
 #include "SDL_Plotter.h"
 #include "Color.h"

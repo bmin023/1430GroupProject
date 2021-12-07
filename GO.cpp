@@ -1,3 +1,15 @@
+/* Author: Brendon Kofink
+ *         Johann Rajadurai
+ *         Aaron Sierra
+ *         David Day
+ *         Lucy Ray
+ * Assignment Title: Ball Game
+ * Assignment Description: user can launch balls to hit objects.
+ * Due Date: 12/08/2021
+ * Date Created: 11/02/2021
+ * Date Last Modified: 12/04/2021
+ */
+
 #include "GO.h"
 
 GO::GO(vec2 center, Shape shape)
@@ -77,71 +89,70 @@ void GO::Translate(vec2 delta)
 
 void GO::ApplyForce(vec2 force)
 {
-    physics.velocity += force;
+  physics.velocity += force;
 }
 
-// Update should be called every frame.
-// It should move the object and draw to screen. (Only if visible)
 void GO::update(SDL_Plotter &g)
 {
-    colliding = false;
-    // check if the object is moving
-    // if it is moving, cover up the old "frame" and draw new one
-    // if it has reached its destination, isMoving = false
-    // still draw things that aren't moving
-    if (isMoving() || moveMethod == PHYSICS)
-    {
-        if(visible) {
-            erase(g);
-        }
-        // Linear movement
-        if (moveMethod == LINEAR)
-        {
-            vec2 linear = destination - getCenter();
-            linear = linear.normalized();
-            center += (linear*deltaTime*1.2);
-        }
-        // Ease movement
-        else if (moveMethod == EASE)
-        {
-            setCenter(center.lerp(destination, .01 * deltaTime));
-            // setCenter(center.lerp(destination, .01));
-        }
-        // Physics movement
-        else if (moveMethod == PHYSICS)
-        {
-            physics.velocity += DOWN * deltaTime * 0.01;
-            center += physics.velocity * deltaTime;
-            // physics.velocity += DOWN *  0.03;
-            // center += physics.velocity;
-        }
-        if ((center - destination).sqrMagnitude() < 0.5)
-        {
-            setMoving(false);
-        }
+  // check if the object is moving
+  // if it is moving, cover up the old "frame" and draw new one
+  // if it has reached its destination, isMoving = false
+  // still draw things that aren't moving
+  colliding = false;
+
+  if (isMoving() || moveMethod == PHYSICS)
+  {
+    if(visible) {
+      erase(g);
     }
-    if((angle!=shape.getAngle() || scaleChange!=0) && visible)
+    // Linear movement
+    if (moveMethod == LINEAR)
     {
-        if(!moving) {
-            erase(g);
-        }
-        shape.setAngle(angle);
-        shape.setRadius(shape.getRadius()+scaleChange*deltaTime);
+      vec2 linear = destination - getCenter();
+      linear = linear.normalized();
+      center += (linear*deltaTime*1.2);
     }
-    scaleChange = 0;
-    if (visible)
+    // Ease movement
+    else if (moveMethod == EASE)
     {
-        shape.draw(g,center);
+      setCenter(center.lerp(destination, .01 * deltaTime));
+      // setCenter(center.lerp(destination, .01));
     }
-    Init();
+    // Physics movement
+    else if (moveMethod == PHYSICS)
+    {
+      physics.velocity += DOWN * deltaTime * 0.01;
+      center += physics.velocity * deltaTime;
+      // physics.velocity += DOWN *  0.03;
+      // center += physics.velocity;
+    }
+    if ((center - destination).sqrMagnitude() < 0.5)
+    {
+      setMoving(false);
+    }
+  }
+  if((angle!=shape.getAngle() || scaleChange!=0) && visible)
+  {
+    if(!moving) {
+      erase(g);
+    }
+    shape.setAngle(angle);
+    shape.setRadius(shape.getRadius()+scaleChange*deltaTime);
+  }
+  scaleChange = 0;
+  if (visible)
+  {
+    shape.draw(g,center);
+  }
+  Init();
 }
 
 void GO::erase(SDL_Plotter &g)
 {
-    Color color = shape.getColor();
-    shape.setColor(BLANK);
-    shape.draw(g,center);
-    shape.setColor(color);
+  Color color = shape.getColor();
+  shape.setColor(BLANK);
+  shape.draw(g,center);
+  shape.setColor(color);
 }
 
 // Use their shapes to check collision and apply force if they are.

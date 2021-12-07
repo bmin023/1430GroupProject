@@ -1,3 +1,15 @@
+/* Author: Brendon Kofink
+ *         Johann Rajadurai
+ *         Aaron Sierra
+ *         David Day
+ *         Lucy Ray
+ * Assignment Title: Ball Game
+ * Assignment Description: user can launch balls to hit objects.
+ * Due Date: 12/08/2021
+ * Date Created: 11/05/2021
+ * Date Last Modified: 12/04/2021
+ */
+
 #ifndef GAMECONTROL_H_INCLUDED
 #define GAMECONTROL_H_INCLUDED
 
@@ -14,8 +26,6 @@ const int LAYERS = 4;
 
 using namespace std;
 
-//GameControl class - Aaron
-// (Obviously change out my documentation for your own)
 class GameControl
 {
   private:
