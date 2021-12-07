@@ -2,7 +2,7 @@
 
 #include "GameControl.h"
 
-// Lucy was here
+// Lucy and Johann was here
 
 /*
  * description: Sets the dots to point through an angle.
