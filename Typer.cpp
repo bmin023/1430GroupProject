@@ -31,6 +31,9 @@ Typer::Typer()
   ImportSymbols();
 }
 
+//Each of these imports does the same thing.
+//Just loop through the proper file and add to array.
+
 void Typer::ImportLetters()
 {
   ifstream file("A.txt");
@@ -143,6 +146,7 @@ bool Typer::TryLetter(char c, int &index)
   return found;
 }
 
+//Helper function
 void Typer::DrawBox(SDL_Plotter &g, int x, int y, int size, Color c)
 {
   for (int i = 0; i < size; i++)
@@ -162,6 +166,7 @@ void Typer::Write(string word, SDL_Plotter &g, vec2 pos, Color c, int size, bool
   int character;
   for (int i = 0; i < word.length(); i++)
   {
+    //Does different things depending what the character is.
     if (isalpha(word[i]))
     {
       character = toupper(word[i]) - 'A';
@@ -180,6 +185,7 @@ void Typer::Write(string word, SDL_Plotter &g, vec2 pos, Color c, int size, bool
       {
         if (characters[character][j][k] && word[i] != ' ')
         {
+          //Draw pixel at pos + i, 5 is size of character * size of font.
           DrawBox(g, pos.x + i * 5 * size + i * size + k * size, pos.y + j * size, size, c);
         }
         else if (back)
@@ -191,6 +197,7 @@ void Typer::Write(string word, SDL_Plotter &g, vec2 pos, Color c, int size, bool
   }
 }
 
+//Writes TextObject instead of normal parameters. 
 void Typer::Write(TextObject text, SDL_Plotter &g)
 {
   Write(text.text, g, text.pos, text.color, text.size, text.back);
