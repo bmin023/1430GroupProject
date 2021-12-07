@@ -10,6 +10,24 @@
  * Date Last Modified: 12/08/2021
  */
 
+/*
+* Data Abstraction:
+*   Create the game, set an initial game state, 
+*    then initialize various counters.
+* Input:
+*   Get the user's input using game.Key() to determine the next state. 
+* Process:
+*   Depending on the state, render text, balls, obstacles, and score.
+*   Move them based on their state.
+* Output:
+*   Use game.Update() to draw everything to the screen.
+* Assumptions:
+*   The user is on a computer with a keyboard.
+*   The user is on a computer with a monitor.
+*   The user has all requirements and dlls installed.
+*   Please let this work on other machines.
+*/
+
 #include <iostream>
 
 #include "GameControl.h"
