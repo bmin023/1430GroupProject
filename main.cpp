@@ -37,11 +37,6 @@ int main(int argc, char **argv)
   double lastShot = 0;
   string scoreMod = "";
 
-  // For pop animation
-  Color start;
-  GO *destroyed;
-  double lastPop = 0;
-
   enum gameState
   {
     TITLE,
@@ -267,6 +262,13 @@ int main(int argc, char **argv)
       obstacleLayer.at(i).ApplyForce(UP * .75 + RIGHT * (rand() % 100 / 250.0 - .2));
     }
 
+    // Delete all deleted objects
+    int size = game.GetLayer(0).size();
+    for (int i = 0; i < size; i++)
+    {
+      game.Delete(0, 0);
+    }
+
     // Create an invisible object that moves from top left to center.
     GO &mover = game.Spawn(GO(vec2(15, 25), Shape(10, 10, RED)), 1);
     mover.setVisible(false);
@@ -311,7 +313,7 @@ int main(int argc, char **argv)
       gameTime += game.DeltaTime();
     }
     // Delete all obstacles
-    int size = game.GetLayer(2).size();
+    size = game.GetLayer(2).size();
     for (int i = 0; i < size; i++)
     {
       game.Delete(2, 0);
